@@ -1,1 +1,55 @@
-h1{color: blue};
+body{
+    background: linear-gradient( to bottom, white, rgb(40, 126, 255) );
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    font-family: fantasy
+}
+#wrapper{
+    width:100%;
+    height: 100%;
+    padding: 5px;
+}
+#top{
+    width: 1050px;
+    height: 200px;
+    padding: 5px;
+    margin : 0 auto;
+    margin-bottom : 5px;
+    text-align: center;
+}
+#search{
+    position: absolute;
+    top: 20%;
+    left: 45%;
+}
+select{
+    width: 100px;
+}
+#bottom{
+    padding: 5px;
+    width: 1050px;
+    height: 500px;
+    padding: 5px;
+    margin : 0 auto;
+}
+img{
+    width:300px;
+    align-self: auto;
+}
+#firstsection, #secondsection {
+    width: 330px;
+    height: 480px;
+    float: left;
+    padding: 5px;
+    margin: 5px;
+    text-align: center;
+}
+#thirdsection{
+    width: 330px;
+    height: 480px;
+    float: left;
+    padding: 5px;
+    margin: 5px;
+    text-align: left;
+}

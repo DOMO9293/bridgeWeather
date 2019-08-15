@@ -2,10 +2,43 @@
 <html>
 <head>
     <meta charset = 'UTF-8'>
+    <title>Weather</title>
     <link rel="stylesheet" href="mainStyle.css">
 </head>
 <body>
-<title>title</title>
-<h1>날씨 앱 프로젝트입니다.checked</h1>
+    <div id="wrapper">
+    <!--모든 콘텐츠-->
+        <div id="top">
+        <!--검색창 부분-->
+        <div id="search">   
+            <!----have to choose one-->        
+            <select name="City" class="citylist">
+                <option value="London">London</option>
+                <option value="SEOUL">Seoul</option>
+            </select>
+            <span>
+                <input type="button" value="go Search" id="butto"/>
+            </span>
+        </div>
+        </div>
+        <div id="bottom">  
+        <!--아이콘,상세내용,온도 블록-->
+        <div id="firstsection">
+        <!--날씨 아이콘을 포함하고 있는 첫 번째 블록-->
+            <img src="https://image.flaticon.com/icons/svg/2044/2044099.svg" alt="icon" id="icon"/>
+        </div>
+        <div id="secondsection">
+        <!--위치,시간 등의 상세내용 표시하는 두 번째 블록-->
+            <h1 id="loc">location</h1>
+            <h2 id="time">12:00</h2>
+            <h3 id="minmaxtemp">10°C/12°C</h3>
+        </div>
+        <div id="thirdsection">
+        <!--온도 표시하는 세 번째 블록-->
+            <h1 id="temperture">31°C</h2>
+        </div>
+        </div>
+    </div>
+
 </body>
 </html>
