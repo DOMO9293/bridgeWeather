@@ -17,5 +17,5 @@ function weatherBalloon( cityName ) {
 
   document.getElementById("fetchButton").addEventListener("click", function(){
     weatherBalloon('Seoul');
-   alert('hey!');
+    alert('hey!');
   });
