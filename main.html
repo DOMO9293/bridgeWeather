@@ -4,7 +4,10 @@
     <meta charset = 'UTF-8'>
     <title>Weather</title>
     <link rel="stylesheet" href="mainStyle.css">
-    <link rel="script" href="fetchWeather.js">
+    <script src="fetchWeather.js">
+    <script type="text/javascript" src="http://www.datejs.com/build/date.js"></script>
+    <script src="secret.js"></script>
+    </script>
 </head>
 <body>
     <div id="wrapper">
@@ -13,12 +16,15 @@
         <!--검색창 부분-->
         <div id="search">   
             <!----have to choose one-->        
-            <select name="City" class="citylist">
-                <option value="London">London</option>
+            <select id = 'citySelect' name="City" class="citylist">
                 <option value="SEOUL">Seoul</option>
+                <option value="Busan">Busan</option>
+                <option value="Daegu">Daegu</option>
+                <option value="Daejeon">Daejeon</option>
+                <option value="jeju">jeju</option>
             </select>
             <span>
-                <input type="button" value="go Search" id="butto"/>
+                <input type="button" value="갱신" id="refresher"/>
             </span>
         </div>
         </div>
@@ -36,7 +42,7 @@
         </div>
         <div id="thirdsection">
         <!--온도 표시하는 세 번째 블록-->
-            <h1 id="temperture">31°C</h2>
+            <h1 id="temperature">31°C</h2>
         </div>
         </div>
     </div>
