@@ -1,6 +1,6 @@
 function weatherBalloon( cityName ) {
   document.getElementById('citySelect').disabled = true;
-    fetch('https://api.openweathermap.org/data/2.5/weather?q=' + cityName+ '&appid=' + key)  
+    fetch('https://api.openweathermap.org/data/2.5/weather?q=' + cityName+',kr'+ '&appid=' + key)  
     .then(function(resp) { 
        // console.log('json',resp.json());
         return resp.json(); // Convert data to json
@@ -8,13 +8,18 @@ function weatherBalloon( cityName ) {
     .then(function(data) {
      console.log(data);
      document.getElementById('icon').src = 'http://openweathermap.org/img/wn/'+data['weather'][0]['icon']+'@2x.png';
+     if(data['weather'][0]['icon'][2] === 'n'){
+      document.getElementById('desc').innerText = 'Night with '+data['weather'][0]['description'];
+     }else{
+      document.getElementById('desc').innerText = 'Day with '+data['weather'][0]['description'];
+     };
      document.getElementById("loc").innerText = data['name'];
      document.getElementById("temperature").innerText = Math.round(data['main']['temp'])/10+'°C';
       let now = new Date(data['dt'] * 1000);
      
       console.log(now.toLocaleString('ko-KR', { hour: 'numeric', minute: 'numeric', hour12: true })) ;
-     document.getElementById('time').innerText ='측정시각 : '+ now.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
-      
+     document.getElementById('time').innerText ='측정시각 : '+ now.toLocaleString('ko-KR', {month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true });
+     //document.getElementById('time').innerText ='측정시각 : '+ now.toLocaleString('ko-KR', { timeZone: 'UTC' });
       
      
      document.getElementById('minmaxtemp').innerText = 
@@ -39,7 +44,7 @@ window.onload=function(){   // 스크립트태그 위치가 위에 있어서 loa
     alert(document.getElementById('loc').innerText+'의 날씨정보를 갱신합니다');
     weatherBalloon(document.getElementById('loc').innerText); 
   })
-  weatherBalloon(document.getElementById('citySelect').children[0].innerText) // 처음 화면 구성 시 기본 location기준 로딩
+  weatherBalloon(document.getElementById('citySelect').children[0].value) // 처음 화면 구성 시 기본 location기준 로딩
   
 }
 
