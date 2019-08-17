@@ -37,6 +37,7 @@ function weatherBalloon( cityName ) {
   //    weatherBallon( 'Seoul' );
   //  }
 window.onload=function(){   // 스크립트태그 위치가 위에 있어서 load완료시 작동 하도록.
+  console.log(document.getElementById('citySelect'));
   document.getElementById('citySelect').addEventListener('change',function(){
     weatherBalloon(this.value);
     console.log(this.value);  // this.innerText 하면 main에서 id는 따로 안줘도 될 것 같은데 this는 select node로 넘어옴. 
@@ -102,7 +103,7 @@ const key = '8c5ed4c3d08a816a8f5821fa97c60239'
 
  */
 
-  }
+  
   
   //  window.onload = function() {  //아마 기본적으로 처음 화면 구성 내용인듯.
   //    weatherBallon( 'Seoul' );
