@@ -1,72 +1,11 @@
-<<<<<<< HEAD
-let cityName = document.getElementById("citylist");
-let currtemp =document.getElementById("temperture");
-let currtime ;
-let currminmax=document.getElementById("minmaxtemp");
-let currposition = document.getElementById("loc");
-
-const key = '8c5ed4c3d08a816a8f5821fa97c60239'
-
-  
-   window.onload = function() {  
-
-    if("geolocation" in navigator){
-      navigator.geolocation.getCurrentPosition(function(position) {
-        fetch('http://api.openweathermap.org/data/2.5/weather?lat=' + position.coords.latitude+'&lon='+position.coords.longitude+'&appid=' + key)
-    .then(function(curr){
-      return curr.json()
-    })
-    .then(function(currpos){
-      console.log('this is real city temp :'+(currpos.main.temp-273));
-      currtemp.innerHTML = (currpos.main.temp-273.15).toFixed(1)+'°C';
-      currminmax.innerHTML = (currpos.main.temp_min-273.15).toFixed(1) + '°C / '+(currpos.main.temp_max-273).toFixed(1) +'°C';
-      currposition.innerHTML = currpos.name;
-    })
-      });
-   }
-   /*else{
-    realcityname="seoul";
-    fetch('https://api.openweathermap.org/data/2.5/weather?q=' + realcityname+ '&appid=' + key)  
-    .then(function(resp) { 
-        return resp.json() }) // Convert data to json
-    .then(function(data) {
-      console.log(data);
-      console.log(cityName.options[cityName.selectedIndex].value);
-    })
-
-   }*/
-   
-   cityName.onchange = function(){
-    realcityname = cityName.options[cityName.selectedIndex].value
-
-    fetch('https://api.openweathermap.org/data/2.5/weather?q=' + realcityname+ '&appid=' + key)  
-=======
 function weatherBalloon( cityName ) {
   document.getElementById('citySelect').disabled = true;
     fetch('https://api.openweathermap.org/data/2.5/weather?q=' + cityName+',kr'+ '&appid=' + key)  
->>>>>>> f0882a7e0a0d47da541f404993165fa21b501461
     .then(function(resp) { 
        // console.log('json',resp.json());
         return resp.json(); // Convert data to json
        })
     .then(function(data) {
-<<<<<<< HEAD
-      console.log(data);
-      console.log(cityName.options[cityName.selectedIndex].value);
-      currtemp.innerHTML = (data.main.temp-273.15).toFixed(1)+'°C';
-      currminmax.innerHTML = (data.main.temp_min-273.15).toFixed(1) + '°C / '+(data.main.temp_max-273).toFixed(1) +'°C';
-      currposition.innerHTML = data.name;
-    })
-   }
-   
-  }
-  
-
-  /*document.getElementById("fetchButton").addEventListener("click", function(){
-    weatherBalloon('Seoul');
-    alert('hey!');
-  });*/
-=======
      console.log(data);
      document.getElementById('icon').src = 'http://openweathermap.org/img/wn/'+data['weather'][0]['icon']+'@2x.png';
      if(data['weather'][0]['icon'][2] === 'n'){
@@ -108,6 +47,57 @@ window.onload=function(){   // 스크립트태그 위치가 위에 있어서 loa
   weatherBalloon(document.getElementById('citySelect').children[0].value) // 처음 화면 구성 시 기본 location기준 로딩
   
 }
->>>>>>> f0882a7e0a0d47da541f404993165fa21b501461
 
   // f1 branch test code
+
+  /*제가 시험삼아 구현해본 코드입니다.
+  -우선 현재지역,셀렉트창 변경 후 현재온도 정도만 구현해봤습니다.
+  -처음 화면 구성 시 현재 위치기준으로 로딩되면 어떨까 싶습니다.
+  -현재위치의 날씨는 지역이름이 아니라 경도,위도로 정보를 받아야해서 지금 코드로는 fetch를 두가지로 받아야합니다.
+  let cityName = document.getElementById("citylist");
+let currtemp =document.getElementById("temperture");
+let currtime ;
+let currminmax=document.getElementById("minmaxtemp");
+let currposition = document.getElementById("loc");
+
+const key = '8c5ed4c3d08a816a8f5821fa97c60239'
+
+  
+   window.onload = function() {  
+
+    if("geolocation" in navigator){
+      navigator.geolocation.getCurrentPosition(function(position) {
+        fetch('http://api.openweathermap.org/data/2.5/weather?lat=' + position.coords.latitude+'&lon='+position.coords.longitude+'&appid=' + key)
+    .then(function(curr){
+      return curr.json()
+    })
+    .then(function(currpos){
+      console.log('this is real city temp :'+(currpos.main.temp-273));
+      currtemp.innerHTML = (currpos.main.temp-273.15).toFixed(1)+'°C';
+      currminmax.innerHTML = (currpos.main.temp_min-273.15).toFixed(1) + '°C / '+(currpos.main.temp_max-273).toFixed(1) +'°C';
+      currposition.innerHTML = currpos.name;
+    })
+      });
+   }
+   
+   
+   cityName.onchange = function(){
+    realcityname = cityName.options[cityName.selectedIndex].value
+
+    fetch('https://api.openweathermap.org/data/2.5/weather?q=' + realcityname+ '&appid=' + key)  
+    .then(function(resp) { 
+        return resp.json() }) // Convert data to json
+    .then(function(data) {
+      console.log(data);
+      console.log(cityName.options[cityName.selectedIndex].value);
+      currtemp.innerHTML = (data.main.temp-273.15).toFixed(1)+'°C';
+      currminmax.innerHTML = (data.main.temp_min-273.15).toFixed(1) + '°C / '+(data.main.temp_max-273).toFixed(1) +'°C';
+      currposition.innerHTML = data.name;
+    })
+   }
+   
+  }
+  
+
+ */
+
