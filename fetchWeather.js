@@ -30,6 +30,7 @@ function weatherBalloon( cityName ) {
       // catch any errors
     });
     document.getElementById('citySelect').disabled = false;
+
   }
   
   //  window.onload = function() {  //아마 기본적으로 처음 화면 구성 내용인듯.
@@ -100,4 +101,10 @@ const key = '8c5ed4c3d08a816a8f5821fa97c60239'
   
 
  */
+
+  }
+  
+  //  window.onload = function() {  //아마 기본적으로 처음 화면 구성 내용인듯.
+  //    weatherBallon( 'Seoul' );
+  //  }
 
