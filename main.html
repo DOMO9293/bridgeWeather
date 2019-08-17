@@ -16,12 +16,19 @@
         <!--검색창 부분-->
         <div id="search">   
             <!----have to choose one-->        
+
+            <select name="City" id="citylist">
+                <option value="london">london</option>
+                <option value="seoul">seoul</option>
+
+
             <select id = 'citySelect' name="City" class="citylist">
                 <option value="SEOUL">서울</option>
                 <option value="Busan">부산</option>
                 <option value="Daegu">대구</option>
                 <option value="Daejeon">대전</option>
                 <option value="Jeju">제주</option>
+
             </select>
             <span>
                 <input type="button" value="갱신" id="refresher"/>
@@ -47,7 +54,7 @@
         </div>
         </div>
     </div>
-
+<script type="text/javascript" src="fetchWeather.js"></script>
 </body>
 
 </html>
