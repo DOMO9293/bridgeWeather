@@ -2,16 +2,18 @@ body{
     background: linear-gradient( to bottom, white, rgb(40, 126, 255) );
     width: 100%;
     height: 100%;
-    margin: 0 auto;
+    margin: 0 auto;  
     font-family: fantasy
 }
 #wrapper{
-    width:100%;
+    width:80%;
     height: 100%;
     padding: 5px;
+    float : left;
 }
 #top{
-    width: 1050px;
+    /* width: 1050px; */
+    width: 80%;
     height: 200px;
     padding: 5px;
     margin : 0 auto;
@@ -28,28 +30,115 @@ select{
 }
 #bottom{
     padding: 5px;
-    width: 1050px;
+    /* width: 1050px; */
+    width: 80%;
     height: 500px;
     padding: 5px;
     margin : 0 auto;
+    box-sizing: border-box;
 }
 img{
     width:300px;
     align-self: auto;
 }
 #firstsection, #secondsection {
-    width: 330px;
-    height: 480px;
+    /* width: 330px; */
+    width: 30%;
+    /* height: 480px; */
+    height: 350px;
     float: left;
     padding: 5px;
     margin: 5px;
     text-align: center;
 }
 #thirdsection{
-    width: 330px;
-    height: 480px;
+    /* width: 330px; */
+    width : 30%;
+    /* height: 480px; */
+    height: 350px;
     float: left;
     padding: 5px;
     margin: 5px;
     text-align: left;
 }
+#footer{
+    margin-left: 50px;
+    height : 100%;
+    float:left;
+    width : 90%;
+}
+#sideBar {
+    background: linear-gradient( to bottom, white, rgb(10, 1, 95) );
+    float :left;
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    top: 0;
+    left: 80%;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 20px;
+    /* https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_sidenav */
+  }
+  #weekUl{
+      margin-right : 20px;
+  }
+  #sideBar>ul>li{
+    list-style-type: none;
+    margin: 5px;
+    background: #cce5ff;
+  }
+  h2{
+      margin-left : 20px;
+      margin-top : 123px;
+  }
+  .days{
+      text-align : center;
+      height : 70px;
+  }
+  .days>div{
+      display: inline-block;
+      vertical-align: middle;
+  }
+  .dayObj{
+    width : 210px;
+    text-align: center;
+    border-style: solid;
+    border-width: 5px;
+    display:inline-block;
+  }
+  .weekIcon{
+    width:50px;
+    vertical-align: middle;
+  }
+  .dawn, .morning, .day, .night{
+    float: left;
+  }
+  .weekIcon{
+      float: left;
+      display: block;
+  }
+  .icons, .dayDivided{
+      height : 50px;
+      width : 100%;
+      border-bottom-style: dotted;
+  }
+ .dayDivided{
+     height : 20px;
+ }
+.footerDate, .footerDay{
+    width : 200px;
+    text-align: center;
+    border-bottom-style: dotted;
+}
+.descN, .divideds, .tempN{
+    width:50px;
+    height:100%;
+    display:inline-block;
+   /* 내부 글자 수직 center 적용필요 */
+}
+h4{
+    margin-bottom : 5px;
+    margin-top: 10px;
+}
+

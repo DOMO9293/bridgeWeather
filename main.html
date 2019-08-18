@@ -1,55 +1,172 @@
 <!doctype html>
 <html>
-<head>
-    <meta charset = 'UTF-8'>
+
+  <head>
+    <meta charset='UTF-8'>
     <title>Weather</title>
     <link rel="stylesheet" href="mainStyle.css">
     <script src="fetchWeather.js">
-      <script type="text/javascript" src="http://www.datejs.com/build/date.js"></script>
-      <script src="secret.js"></script>
+      <script type="text/javascript" src="http://www.datejs.com/build/date.js" ></script>
+        <script src="secret.js" ></script>
     </script>
-</head>
-<body>
+  </head>
+
+  <body>
     <div id="wrapper">
-    <!--모든 콘텐츠-->
-        <div id="top">
+      <!--모든 콘텐츠-->
+      <div id="top">
         <!--검색창 부분-->
-        <div id="search">   
-            <!----have to choose one-->        
+        <div id="search">
+          <!----have to choose one-->
 
-            <select id = 'citySelect' name="City" class="citylist">
-                <option value="SEOUL">서울</option>
-                <option value="Busan">부산</option>
-                <option value="Daegu">대구</option>
-                <option value="Daejeon">대전</option>
-                <option value="Jeju">제주</option>
+          <select id='citySelect' name="City" class="citylist">
+            <option value="SEOUL">서울</option>
+            <option value="Busan">부산</option>
+            <option value="Daegu">대구</option>
+            <option value="Daejeon">대전</option>
+            <option value="Jeju">제주</option>
 
-            </select>
-            <span>
-                <input type="button" value="갱신" id="refresher"/>
-            </span>
+          </select>
+          <span>
+            <input type="button" value="갱신" id="refresher" />
+          </span>
         </div>
-        </div>
-        <div id="bottom">  
+      </div>
+      <div id="bottom">
         <!--아이콘,상세내용,온도 블록-->
         <div id="firstsection">
-        <!--날씨 아이콘을 포함하고 있는 첫 번째 블록-->
-            <img src="https://image.flaticon.com/icons/svg/2044/2044099.svg" alt="icon" id="icon"/>
-            <div id = 'desc'>night</div>
+          <!--날씨 아이콘을 포함하고 있는 첫 번째 블록-->
+          <img src="https://image.flaticon.com/icons/svg/2044/2044099.svg" alt="icon" id="icon" />
+          <div id='desc'>night</div>
         </div>
         <div id="secondsection">
-        <!--위치,시간 등의 상세내용 표시하는 두 번째 블록-->
-            <h1 id="loc">location</h1>
-            <h2 id="time">12:00</h2>
-            <h3 id="minmaxtemp">10°C/12°C</h3>
+          <!--위치,시간 등의 상세내용 표시하는 두 번째 블록-->
+          <h1 id="loc">location</h1>
+          <h2 id="time">12:00</h2>
+          <h3 id="minmaxtemp">10°C/12°C</h3>
         </div>
         <div id="thirdsection">
-        <!--온도 표시하는 세 번째 블록-->
-            <h1 id="temperature">31°C</h2>
+          <!--온도 표시하는 세 번째 블록-->
+          <h1 id="temperature">31°C</h2>
         </div>
+        <div id='footer'>
+          <h4>나절예보</h4>
+          <span id = 'dayObjContainer'><div class="dayObj">
+              <div class="dayDate">
+                  <div class = 'footerDay' id = 'footerDay1'>오늘</div>
+                  <div class = 'footerDate' id = footerDate1>02/17</div>
+              </div>
+              <div class="dayDivided">
+                  <div class = 'divideds' id="day1dawn">새벽</div>
+                  <div class = 'divideds' id="day1morning">아침</div>
+                  <div class = 'divideds' id="day1day">낮</div>
+                  <div class = 'divideds' id="day1night">저녁</div>
+              </div>
+              <div class="icons">
+                  <img class = 'weekIcon' id="day1icon1" src='http://openweathermap.org/img/wn/01d@2x.png'>
+                  <img class = 'weekIcon'  id="day1icon2" src='http://openweathermap.org/img/wn/01d@2x.png'>
+                  <img class = 'weekIcon'  id="day1icon3" src='http://openweathermap.org/img/wn/01d@2x.png'> 
+                  <img class = 'weekIcon'  id="day1icon4" src='http://openweathermap.org/img/wn/01d@2x.png'> 
+              </div>
+              <div class="descs">
+                  <div class="descN" id='day1desc1'>흐림</div>
+                  <div class="descN" id='day1desc2'>흐림</div>
+                  <div class="descN" id='day1desc3'>흐림</div>
+                  <div class="descN" id='day1desc4'>흐림</div>
+              </div>
+              <div class="footerTemperature">
+                  <div class="tempN" id='day1temp1'>10°C</div>
+                  <div class="tempN" id='day1temp2'>10°C</div>
+                  <div class="tempN" id='day1temp3'>10°C</div>
+                  <div class="tempN" id='day1temp4'>10°C</div>
+              </div>
+            </div>
+          </span>
+
+          <span id = 'dayObjContainer'><div class="dayObj">
+            <div class="dayDate">
+                <div class = 'footerDay' id = 'footerDay2'>내일</div>
+                <div class = 'footerDate' id = footerDate2>02/18</div>
+            </div>
+            <div class="dayDivided">
+                <div class = 'divideds' id="day2dawn">새벽</div>
+                <div class = 'divideds' id="day2morning">아침</div>
+                <div class = 'divideds' id="day2day">낮</div>
+                <div class = 'divideds' id="day2night">저녁</div>
+            </div>
+            <div class="icons">
+                <img class = 'weekIcon' id="day2icon1" src='http://openweathermap.org/img/wn/01d@2x.png'>
+                <img class = 'weekIcon'  id="day2icon2" src='http://openweathermap.org/img/wn/01d@2x.png'>
+                <img class = 'weekIcon'  id="day2icon3" src='http://openweathermap.org/img/wn/01d@2x.png'> 
+                <img class = 'weekIcon'  id="day2icon4" src='http://openweathermap.org/img/wn/01d@2x.png'> 
+            </div>
+            <div class="descs">
+                <div class="descN" id='day2desc1'>흐림</div>
+                <div class="descN" id='day2desc2'>흐림</div>
+                <div class="descN" id='day2desc3'>흐림</div>
+                <div class="descN" id='day2desc4'>흐림</div>
+            </div>
+            <div class="footerTemperature">
+                <div class="tempN" id='day2temp1'>10°C</div>
+                <div class="tempN" id='day2temp2'>10°C</div>
+                <div class="tempN" id='day2temp3'>10°C</div>
+                <div class="tempN" id='day2temp4'>10°C</div>
+            </div>
+          </div>
+        </span>
+
+        <span id = 'dayObjContainer'><div class="dayObj">
+          <div class="dayDate">
+              <div class = 'footerDay' id = 'footerDay3'>모래</div>
+              <div class = 'footerDate' id = footerDate3>02/19</div>
+          </div>
+          <div class="dayDivided">
+              <div class = 'divideds' id="day3dawn">새벽</div>
+              <div class = 'divideds' id="day3morning">아침</div>
+              <div class = 'divideds' id="day3day">낮</div>
+              <div class = 'divideds' id="day3night">저녁</div>
+          </div>
+          <div class="icons">
+              <img class = 'weekIcon' id="day3icon1" src='http://openweathermap.org/img/wn/01d@2x.png'>
+              <img class = 'weekIcon'  id="day3icon2" src='http://openweathermap.org/img/wn/01d@2x.png'>
+              <img class = 'weekIcon'  id="day3icon3" src='http://openweathermap.org/img/wn/01d@2x.png'> 
+              <img class = 'weekIcon'  id="day3icon4" src='http://openweathermap.org/img/wn/01d@2x.png'> 
+          </div>
+          <div class="descs">
+              <div class="descN" id='day3desc1'>흐림</div>
+              <div class="descN" id='day3desc2'>흐림</div>
+              <div class="descN" id='day3desc3'>흐림</div>
+              <div class="descN" id='day3desc4'>흐림</div>
+          </div>
+          <div class="footerTemperature">
+              <div class="tempN" id='day3temp1'>10°C</div>
+              <div class="tempN" id='day3temp2'>10°C</div>
+              <div class="tempN" id='day3temp3'>10°C</div>
+              <div class="tempN" id='day3temp4'>10°C</div>
+          </div>
         </div>
+      </span>
+          
+         
+      <div>
+          
+      </div>
     </div>
-<script type="text/javascript" src="fetchWeather.js"></script>
-</body>
+    <div id='sideBar'>
+      <h2>주간예보</h2>
+      <ul id = 'weekUl'>
+        <li id='day1' class = 'days'><div>02/17<br />월</div><img class = 'weekIcon' src='http://openweathermap.org/img/wn/50d@2x.png'></li> 
+        <li id='day2' class = 'days'><div>02/18<br />화</div><img class = 'weekIcon' src='http://openweathermap.org/img/wn/01d@2x.png'></li> 
+        <li id='day3' class = 'days'><div>02/19<br />수</div><img class = 'weekIcon' src='http://openweathermap.org/img/wn/50d@2x.png'></li> 
+        <li id='day4' class = 'days'><div>02/20<br />목</div><img class = 'weekIcon' src='http://openweathermap.org/img/wn/50d@2x.png'></li> 
+        <li id='day5' class = 'days'><div>02/21<br />금</div><img class = 'weekIcon' src='http://openweathermap.org/img/wn/50d@2x.png'></li> 
+        <li id='day6' class = 'days'><div>02/22<br />토</div><img class = 'weekIcon' src='http://openweathermap.org/img/wn/50d@2x.png'></li> 
+      </ul>
+    
+
+    
+    <script type="text/javascript" src="fetchWeather.js"></script>
+
+  </body>
 
 </html>
