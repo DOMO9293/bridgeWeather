@@ -37,6 +37,12 @@ function weatherBalloon( cityName ) {
 
         //주간예보
       
+        for(let i = 1;i<6;i++){
+          if(i===5){
+            eval('document.getElementById("day'+i+'").getElementsByTagName("img")[0]["src"] = "http://openweathermap.org/img/wn/"+data["list"]['+39+']["weather"][0]["icon"]+"@2x.png";');
+        }else{
+          eval('document.getElementById("day'+i+'").getElementsByTagName("img")[0]["src"] = "http://openweathermap.org/img/wn/"+data["list"]['+i*8+']["weather"][0]["icon"]+"@2x.png";');
+        }}
 
       // document.getElementById("day1").getElementsByTagName("img")[0]["src"] = 'http://openweathermap.org/img/wn/'+data['list'][8]['weather'][0]['icon']+'@2x.png';
       // document.getElementById("day2").getElementsByTagName("img")[0]["src"] = 'http://openweathermap.org/img/wn/'+data['list'][16]['weather'][0]['icon']+'@2x.png';
@@ -47,8 +53,6 @@ function weatherBalloon( cityName ) {
 
       let week = ['일', '월', '화', '수', '목', '금', '토'];
       for(let i = 1;i<5;i++){
-        eval('document.getElementById("day'+i+'").getElementsByTagName("img")[0]["src"] = "http://openweathermap.org/img/wn/"+data["list"]['+i*8+']["weather"][0]["icon"]+"@2x.png";');
-
         eval('var theday'+i+'= data["list"]['+i*8+']["dt_txt"].slice(0,10);');
         eval('day'+i+'OfWeek = week[new Date(theday'+i+').getDay()];');
         eval('document.getElementById("day'+i+'").getElementsByTagName("div")[0].innerHTML = data["list"]['+i*8+']["dt_txt"].slice(5,10) + "<br/>"+day'+i+'OfWeek;');
@@ -499,12 +503,13 @@ function weatherBalloon( cityName ) {
           eval('document.getElementById("day'+i+'").getElementsByTagName("img")[0]["src"] = "http://openweathermap.org/img/wn/"+data["list"]['+39+']["weather"][0]["icon"]+"@2x.png";'); 
         }else{
           eval('document.getElementById("day'+i+'").getElementsByTagName("img")[0]["src"] = "http://openweathermap.org/img/wn/"+data["list"]['+i*8+']["weather"][0]["icon"]+"@2x.png";');
-        }
-        
-
+          
         eval('var theday'+i+'= data["list"]['+i*8+']["dt_txt"].slice(0,10);');
         eval('day'+i+'OfWeek = week[new Date(theday'+i+').getDay()];');
         eval('document.getElementById("day'+i+'").getElementsByTagName("div")[0].innerHTML = data["list"]['+i*8+']["dt_txt"].slice(5,10) + "<br/>"+day'+i+'OfWeek;');
+        }
+        
+
           }
       // let theday1 = data['list'][8]["dt_txt"].slice(0,10);
       // let day1OfWeek = week[new Date(theday1).getDay()];    
