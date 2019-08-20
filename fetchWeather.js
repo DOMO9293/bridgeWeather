@@ -38,29 +38,36 @@ function weatherBalloon( cityName ) {
         //주간예보
       
 
-      document.getElementById("day1").getElementsByTagName("img")[0]["src"] = 'http://openweathermap.org/img/wn/'+data['list'][8]['weather'][0]['icon']+'@2x.png';
-      document.getElementById("day2").getElementsByTagName("img")[0]["src"] = 'http://openweathermap.org/img/wn/'+data['list'][16]['weather'][0]['icon']+'@2x.png';
-      document.getElementById("day3").getElementsByTagName("img")[0]["src"] = 'http://openweathermap.org/img/wn/'+data['list'][24]['weather'][0]['icon']+'@2x.png';
-      document.getElementById("day4").getElementsByTagName("img")[0]["src"] = 'http://openweathermap.org/img/wn/'+data['list'][32]['weather'][0]['icon']+'@2x.png';
-      document.getElementById("day5").getElementsByTagName("img")[0]["src"] = 'http://openweathermap.org/img/wn/'+data['list'][39]['weather'][0]['icon']+'@2x.png';
-
+      // document.getElementById("day1").getElementsByTagName("img")[0]["src"] = 'http://openweathermap.org/img/wn/'+data['list'][8]['weather'][0]['icon']+'@2x.png';
+      // document.getElementById("day2").getElementsByTagName("img")[0]["src"] = 'http://openweathermap.org/img/wn/'+data['list'][16]['weather'][0]['icon']+'@2x.png';
+      // document.getElementById("day3").getElementsByTagName("img")[0]["src"] = 'http://openweathermap.org/img/wn/'+data['list'][24]['weather'][0]['icon']+'@2x.png';
+      // document.getElementById("day4").getElementsByTagName("img")[0]["src"] = 'http://openweathermap.org/img/wn/'+data['list'][32]['weather'][0]['icon']+'@2x.png';
+      // document.getElementById("day5").getElementsByTagName("img")[0]["src"] = 'http://openweathermap.org/img/wn/'+data['list'][39]['weather'][0]['icon']+'@2x.png';
+      
 
       let week = ['일', '월', '화', '수', '목', '금', '토'];
-      let theday1 = data['list'][8]["dt_txt"].slice(0,10);
-      let day1OfWeek = week[new Date(theday1).getDay()];    
-      document.getElementById("day1").getElementsByTagName("div")[0].innerHTML = data['list'][8]["dt_txt"].slice(5,10)+'<br/>'+day1OfWeek;
+      for(let i = 1;i<5;i++){
+        eval('document.getElementById("day'+i+'").getElementsByTagName("img")[0]["src"] = "http://openweathermap.org/img/wn/"+data["list"]['+i*8+']["weather"][0]["icon"]+"@2x.png";');
 
-      let theday2 = data['list'][16]["dt_txt"].slice(0,10)
-      let day2OfWeek = week[new Date(theday2).getDay()]    
-      document.getElementById("day2").getElementsByTagName("div")[0].innerHTML = data['list'][16]["dt_txt"].slice(5,10)+'<br/>'+day2OfWeek;
+        eval('var theday'+i+'= data["list"]['+i*8+']["dt_txt"].slice(0,10);');
+        eval('day'+i+'OfWeek = week[new Date(theday'+i+').getDay()];');
+        eval('document.getElementById("day'+i+'").getElementsByTagName("div")[0].innerHTML = data["list"]['+i*8+']["dt_txt"].slice(5,10) + "<br/>"+day'+i+'OfWeek;');
+          }
+      // let theday1 = data['list'][8]["dt_txt"].slice(0,10);
+      // let day1OfWeek = week[new Date(theday1).getDay()];    
+      // document.getElementById("day1").getElementsByTagName("div")[0].innerHTML = data['list'][8]["dt_txt"].slice(5,10)+'<br/>'+day1OfWeek;
 
-      let theday3 = data['list'][24]["dt_txt"].slice(0,10);
-      let day3OfWeek = week[new Date(theday3).getDay()];    
-      document.getElementById("day3").getElementsByTagName("div")[0].innerHTML = data['list'][24]["dt_txt"].slice(5,10)+'<br/>'+day3OfWeek;
+      // let theday2 = data['list'][16]["dt_txt"].slice(0,10)
+      // let day2OfWeek = week[new Date(theday2).getDay()]    
+      // document.getElementById("day2").getElementsByTagName("div")[0].innerHTML = data['list'][16]["dt_txt"].slice(5,10)+'<br/>'+day2OfWeek;
 
-      let theday4 = data['list'][32]["dt_txt"].slice(0,10)
-      let day4OfWeek = week[new Date(theday4).getDay()]    
-      document.getElementById("day4").getElementsByTagName("div")[0].innerHTML = data['list'][32]["dt_txt"].slice(5,10)+'<br/>'+day4OfWeek;
+      // let theday3 = data['list'][24]["dt_txt"].slice(0,10);
+      // let day3OfWeek = week[new Date(theday3).getDay()];    
+      // document.getElementById("day3").getElementsByTagName("div")[0].innerHTML = data['list'][24]["dt_txt"].slice(5,10)+'<br/>'+day3OfWeek;
+
+      // let theday4 = data['list'][32]["dt_txt"].slice(0,10)
+      // let day4OfWeek = week[new Date(theday4).getDay()]    
+      // document.getElementById("day4").getElementsByTagName("div")[0].innerHTML = data['list'][32]["dt_txt"].slice(5,10)+'<br/>'+day4OfWeek;
 
 
 
@@ -72,302 +79,370 @@ function weatherBalloon( cityName ) {
         let day1currtime = parseInt(data['list'][0]['dt_txt'].slice(11,13));
         console.log(data);
         if(day1currtime>3&&day1currtime<10){//처음으로 들어오는 시간이 새벽기준인 4시보다 늦었을때
+          var cnt = 0;
+          for(let i = 1;i<4;i++){
+            for(let j = 1;j<5;j++){
+              if(i === 1 && j === 1){
+                eval('document.getElementById("day'+i+'icon'+j+'").src = "https://image.flaticon.com/icons/svg/271/271207.svg";');
+                eval("document.getElementById('day"+i+"desc"+j+"').innerText = '-';");
+                eval('document.getElementById("day'+i+'temp'+j+'").innerText = "-";');
+              }else{
+              eval("document.getElementById('day"+i+"icon"+j+"').src = 'http://openweathermap.org/img/wn/'+data['list']["+cnt+"]['weather'][0]['icon']+'@2x.png';");  
+              eval('document.getElementById("day'+i+'desc'+j+'").innerText = data["list"]['+cnt+']["weather"][0]["main"];');
+              eval('document.getElementById("day'+i+'temp'+j+'").innerText = Math.round(data["list"]['+cnt+']["main"]["temp"]-273.15)+"°C";');
+              cnt += 2;
+              }
+            }
+          }
+          
         
-          document.getElementById('day1icon1').src = 'https://image.flaticon.com/icons/svg/271/271207.svg';
+          // document.getElementById('day1icon1').src = 'https://image.flaticon.com/icons/svg/271/271207.svg';
 
-          document.getElementById('day1desc1').innerText = '-';
+          // document.getElementById('day1desc1').innerText = '-';
          
-          document.getElementById("day1temp1").innerText = '-';
+          // document.getElementById("day1temp1").innerText = '-';
+
    
-          document.getElementById('day1icon2').src = 'http://openweathermap.org/img/wn/'+data['list'][0]['weather'][0]['icon']+'@2x.png';
+          // document.getElementById('day1icon2').src = 'http://openweathermap.org/img/wn/'+data['list'][0]['weather'][0]['icon']+'@2x.png';
    
-          document.getElementById('day1desc2').innerText = data['list'][0]['weather'][0]['main'];
+          // document.getElementById('day1desc2').innerText = data['list'][0]['weather'][0]['main'];
          
-          document.getElementById("day1temp2").innerText = Math.round(data['list'][0]['main']['temp']-273.15)+'°C';
+          // document.getElementById("day1temp2").innerText = Math.round(data['list'][0]['main']['temp']-273.15)+'°C';
+
    
-          document.getElementById('day1icon3').src = 'http://openweathermap.org/img/wn/'+data['list'][2]['weather'][0]['icon']+'@2x.png';
+          // document.getElementById('day1icon3').src = 'http://openweathermap.org/img/wn/'+data['list'][2]['weather'][0]['icon']+'@2x.png';
    
-          document.getElementById('day1desc3').innerText = data['list'][2]['weather'][0]['main'];
+          // document.getElementById('day1desc3').innerText = data['list'][2]['weather'][0]['main'];
          
-          document.getElementById("day1temp3").innerText = Math.round(data['list'][2]['main']['temp']-273.15)+'°C';
+          // document.getElementById("day1temp3").innerText = Math.round(data['list'][2]['main']['temp']-273.15)+'°C';
+
    
-          document.getElementById('day1icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][4]['weather'][0]['icon']+'@2x.png';
+          // document.getElementById('day1icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][4]['weather'][0]['icon']+'@2x.png';
    
-          document.getElementById('day1desc4').innerText = data['list'][4]['weather'][0]['main'];
+          // document.getElementById('day1desc4').innerText = data['list'][4]['weather'][0]['main'];
          
-          document.getElementById("day1temp4").innerText = Math.round(data['list'][4]['main']['temp']-273.15)+'°C';
+          // document.getElementById("day1temp4").innerText = Math.round(data['list'][4]['main']['temp']-273.15)+'°C';
 
-          document.getElementById('day2icon1').src = 'http://openweathermap.org/img/wn/'+data['list'][6]['weather'][0]['icon']+'@2x.png';
+          // document.getElementById('day2icon1').src = 'http://openweathermap.org/img/wn/'+data['list'][6]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day2desc1').innerText = data['list'][6]['weather'][0]['main'];
-      
-       document.getElementById("day2temp1").innerText = Math.round(data['list'][6]['main']['temp']-273.15)+'°C';
+          // document.getElementById('day2desc1').innerText = data['list'][6]['weather'][0]['main'];
+          
+          // document.getElementById("day2temp1").innerText = Math.round(data['list'][6]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day2icon2').src = 'http://openweathermap.org/img/wn/'+data['list'][8]['weather'][0]['icon']+'@2x.png';
+          // document.getElementById('day2icon2').src = 'http://openweathermap.org/img/wn/'+data['list'][8]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day2desc2').innerText = data['list'][8]['weather'][0]['main'];
-      
-       document.getElementById("day2temp2").innerText = Math.round(data['list'][8]['main']['temp']-273.15)+'°C';
+          // document.getElementById('day2desc2').innerText = data['list'][8]['weather'][0]['main'];
+          
+          // document.getElementById("day2temp2").innerText = Math.round(data['list'][8]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day2icon3').src = 'http://openweathermap.org/img/wn/'+data['list'][10]['weather'][0]['icon']+'@2x.png';
+          // document.getElementById('day2icon3').src = 'http://openweathermap.org/img/wn/'+data['list'][10]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day2desc3').innerText = data['list'][10]['weather'][0]['main'];
-      
-       document.getElementById("day2temp3").innerText = Math.round(data['list'][10]['main']['temp']-273.15)+'°C';
+          // document.getElementById('day2desc3').innerText = data['list'][10]['weather'][0]['main'];
+          
+          // document.getElementById("day2temp3").innerText = Math.round(data['list'][10]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day2icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][12]['weather'][0]['icon']+'@2x.png';
+          // document.getElementById('day2icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][12]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day2desc4').innerText = data['list'][12]['weather'][0]['main'];
-      
-       document.getElementById("day2temp4").innerText = Math.round(data['list'][12]['main']['temp']-273.15)+'°C';
-       
-       document.getElementById('day3icon1').src = 'http://openweathermap.org/img/wn/'+data['list'][14]['weather'][0]['icon']+'@2x.png';
+          // document.getElementById('day2desc4').innerText = data['list'][12]['weather'][0]['main'];
+          
+          // document.getElementById("day2temp4").innerText = Math.round(data['list'][12]['main']['temp']-273.15)+'°C';
+          
+          // document.getElementById('day3icon1').src = 'http://openweathermap.org/img/wn/'+data['list'][14]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day3desc1').innerText = data['list'][14]['weather'][0]['main'];
-      
-       document.getElementById("day3temp1").innerText = Math.round(data['list'][14]['main']['temp']-273.15)+'°C';
+          // document.getElementById('day3desc1').innerText = data['list'][14]['weather'][0]['main'];
+          
+          // document.getElementById("day3temp1").innerText = Math.round(data['list'][14]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day3icon2').src = 'http://openweathermap.org/img/wn/'+data['list'][16]['weather'][0]['icon']+'@2x.png';
+          // document.getElementById('day3icon2').src = 'http://openweathermap.org/img/wn/'+data['list'][16]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day3desc2').innerText = data['list'][16]['weather'][0]['main'];
-      
-       document.getElementById("day3temp2").innerText = Math.round(data['list'][16]['main']['temp']-273.15)+'°C';
+          // document.getElementById('day3desc2').innerText = data['list'][16]['weather'][0]['main'];
+          
+          // document.getElementById("day3temp2").innerText = Math.round(data['list'][16]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day3icon3').src = 'http://openweathermap.org/img/wn/'+data['list'][18]['weather'][0]['icon']+'@2x.png';
+          // document.getElementById('day3icon3').src = 'http://openweathermap.org/img/wn/'+data['list'][18]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day3desc3').innerText = data['list'][18]['weather'][0]['main'];
-      
-       document.getElementById("day3temp3").innerText = Math.round(data['list'][18]['main']['temp']-273.15)+'°C';
+          // document.getElementById('day3desc3').innerText = data['list'][18]['weather'][0]['main'];
+          
+          // document.getElementById("day3temp3").innerText = Math.round(data['list'][18]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day3icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][20]['weather'][0]['icon']+'@2x.png';
+          // document.getElementById('day3icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][20]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day3desc4').innerText = data['list'][20]['weather'][0]['main'];
-      
-       document.getElementById("day3temp4").innerText = Math.round(data['list'][20]['main']['temp']-273.15)+'°C';
+          // document.getElementById('day3desc4').innerText = data['list'][20]['weather'][0]['main'];
+          
+          // document.getElementById("day3temp4").innerText = Math.round(data['list'][20]['main']['temp']-273.15)+'°C';
         
            }
        else if(day1currtime>9&&day1currtime<18){
-        document.getElementById('day1icon1').src = 'https://image.flaticon.com/icons/svg/271/271207.svg';
+        var cnt = 0;
+        for(let i = 1;i<4;i++){
+          for(let j = 1;j<5;j++){
+            if(i === 1 && (j === 1 || j===2)){
+              eval('document.getElementById("day'+i+'icon'+j+'").src = "https://image.flaticon.com/icons/svg/271/271207.svg";');
+              eval("document.getElementById('day"+i+"desc"+j+"').innerText = '-';");
+              eval('document.getElementById("day'+i+'temp'+j+'").innerText = "-";');
+            }else{
+            eval("document.getElementById('day"+i+"icon"+j+"').src = 'http://openweathermap.org/img/wn/'+data['list']["+cnt+"]['weather'][0]['icon']+'@2x.png';");  
+            eval('document.getElementById("day'+i+'desc'+j+'").innerText = data["list"]['+cnt+']["weather"][0]["main"];');
+            eval('document.getElementById("day'+i+'temp'+j+'").innerText = Math.round(data["list"]['+cnt+']["main"]["temp"]-273.15)+"°C";');
+            cnt += 2;
+            }
+          }
+        }
 
-        document.getElementById('day1desc1').innerText = '-';
+        // document.getElementById('day1icon1').src = 'https://image.flaticon.com/icons/svg/271/271207.svg';
+
+        // document.getElementById('day1desc1').innerText = '-';
        
-        document.getElementById("day1temp1").innerText = '-';
+        // document.getElementById("day1temp1").innerText = '-';
  
-        document.getElementById('day1icon2').src = 'https://image.flaticon.com/icons/svg/271/271207.svg';
+        // document.getElementById('day1icon2').src = 'https://image.flaticon.com/icons/svg/271/271207.svg';
  
-        document.getElementById('day1desc2').innerText = '-';
+        // document.getElementById('day1desc2').innerText = '-';
        
-        document.getElementById("day1temp2").innerText = '-';
+        // document.getElementById("day1temp2").innerText = '-';
  
-        document.getElementById('day1icon3').src = 'http://openweathermap.org/img/wn/'+data['list'][0]['weather'][0]['icon']+'@2x.png';
+        // document.getElementById('day1icon3').src = 'http://openweathermap.org/img/wn/'+data['list'][0]['weather'][0]['icon']+'@2x.png';
  
-        document.getElementById('day1desc3').innerText = data['list'][0]['weather'][0]['main'];
+        // document.getElementById('day1desc3').innerText = data['list'][0]['weather'][0]['main'];
        
-        document.getElementById("day1temp3").innerText = Math.round(data['list'][0]['main']['temp']-273.15)+'°C';
+        // document.getElementById("day1temp3").innerText = Math.round(data['list'][0]['main']['temp']-273.15)+'°C';
  
-        document.getElementById('day1icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][2]['weather'][0]['icon']+'@2x.png';
+        // document.getElementById('day1icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][2]['weather'][0]['icon']+'@2x.png';
  
-        document.getElementById('day1desc4').innerText = data['list'][2]['weather'][0]['main'];
+        // document.getElementById('day1desc4').innerText = data['list'][2]['weather'][0]['main'];
        
-        document.getElementById("day1temp4").innerText = Math.round(data['list'][2]['main']['temp']-273.15)+'°C';
+        // document.getElementById("day1temp4").innerText = Math.round(data['list'][2]['main']['temp']-273.15)+'°C';
 
-        document.getElementById('day2icon1').src = 'http://openweathermap.org/img/wn/'+data['list'][4]['weather'][0]['icon']+'@2x.png';
+        // document.getElementById('day2icon1').src = 'http://openweathermap.org/img/wn/'+data['list'][4]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day2desc1').innerText = data['list'][4]['weather'][0]['main'];
-      
-       document.getElementById("day2temp1").innerText = Math.round(data['list'][4]['main']['temp']-273.15)+'°C';
+        // document.getElementById('day2desc1').innerText = data['list'][4]['weather'][0]['main'];
+        
+        // document.getElementById("day2temp1").innerText = Math.round(data['list'][4]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day2icon2').src = 'http://openweathermap.org/img/wn/'+data['list'][6]['weather'][0]['icon']+'@2x.png';
+        // document.getElementById('day2icon2').src = 'http://openweathermap.org/img/wn/'+data['list'][6]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day2desc2').innerText = data['list'][6]['weather'][0]['main'];
-      
-       document.getElementById("day2temp2").innerText = Math.round(data['list'][6]['main']['temp']-273.15)+'°C';
+        // document.getElementById('day2desc2').innerText = data['list'][6]['weather'][0]['main'];
+        
+        // document.getElementById("day2temp2").innerText = Math.round(data['list'][6]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day2icon3').src = 'http://openweathermap.org/img/wn/'+data['list'][8]['weather'][0]['icon']+'@2x.png';
+        // document.getElementById('day2icon3').src = 'http://openweathermap.org/img/wn/'+data['list'][8]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day2desc3').innerText = data['list'][8]['weather'][0]['main'];
-      
-       document.getElementById("day2temp3").innerText = Math.round(data['list'][8]['main']['temp']-273.15)+'°C';
+        // document.getElementById('day2desc3').innerText = data['list'][8]['weather'][0]['main'];
+        
+        // document.getElementById("day2temp3").innerText = Math.round(data['list'][8]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day2icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][10]['weather'][0]['icon']+'@2x.png';
+        // document.getElementById('day2icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][10]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day2desc4').innerText = data['list'][10]['weather'][0]['main'];
-      
-       document.getElementById("day2temp4").innerText = Math.round(data['list'][10]['main']['temp']-273.15)+'°C';
+        // document.getElementById('day2desc4').innerText = data['list'][10]['weather'][0]['main'];
+        
+        // document.getElementById("day2temp4").innerText = Math.round(data['list'][10]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day3icon1').src = 'http://openweathermap.org/img/wn/'+data['list'][12]['weather'][0]['icon']+'@2x.png';
+        // document.getElementById('day3icon1').src = 'http://openweathermap.org/img/wn/'+data['list'][12]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day3desc1').innerText = data['list'][12]['weather'][0]['main'];
-      
-       document.getElementById("day3temp1").innerText = Math.round(data['list'][12]['main']['temp']-273.15)+'°C';
+        // document.getElementById('day3desc1').innerText = data['list'][12]['weather'][0]['main'];
+        
+        // document.getElementById("day3temp1").innerText = Math.round(data['list'][12]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day3icon2').src = 'http://openweathermap.org/img/wn/'+data['list'][14]['weather'][0]['icon']+'@2x.png';
+        // document.getElementById('day3icon2').src = 'http://openweathermap.org/img/wn/'+data['list'][14]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day3desc2').innerText = data['list'][14]['weather'][0]['main'];
-      
-       document.getElementById("day3temp2").innerText = Math.round(data['list'][14]['main']['temp']-273.15)+'°C';
+        // document.getElementById('day3desc2').innerText = data['list'][14]['weather'][0]['main'];
+        
+        // document.getElementById("day3temp2").innerText = Math.round(data['list'][14]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day3icon3').src = 'http://openweathermap.org/img/wn/'+data['list'][16]['weather'][0]['icon']+'@2x.png';
+        // document.getElementById('day3icon3').src = 'http://openweathermap.org/img/wn/'+data['list'][16]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day3desc3').innerText = data['list'][16]['weather'][0]['main'];
-      
-       document.getElementById("day3temp3").innerText = Math.round(data['list'][16]['main']['temp']-273.15)+'°C';
+        // document.getElementById('day3desc3').innerText = data['list'][16]['weather'][0]['main'];
+        
+        // document.getElementById("day3temp3").innerText = Math.round(data['list'][16]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day3icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][18]['weather'][0]['icon']+'@2x.png';
+        // document.getElementById('day3icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][18]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day3desc4').innerText = data['list'][18]['weather'][0]['main'];
-      
-       document.getElementById("day3temp4").innerText = Math.round(data['list'][18]['main']['temp']-273.15)+'°C';
+        // document.getElementById('day3desc4').innerText = data['list'][18]['weather'][0]['main'];
+        
+        // document.getElementById("day3temp4").innerText = Math.round(data['list'][18]['main']['temp']-273.15)+'°C';
         
         
        }
        else if(day1currtime>17&&day1currtime<24){
          console.log(data);
-        document.getElementById('day1icon1').src = 'https://www.flaticon.com/premium-icon/icons/svg/1628/1628954.svg';
+         var cnt = 0;
+        for(let i = 1;i<4;i++){
+          for(let j = 1;j<5;j++){
+            if(i === 1 && (j === 1 || j===2 || j === 3)){
+              eval('document.getElementById("day'+i+'icon'+j+'").src = "https://image.flaticon.com/icons/svg/271/271207.svg";');
+              eval("document.getElementById('day"+i+"desc"+j+"').innerText = '-';");
+              eval('document.getElementById("day'+i+'temp'+j+'").innerText = "-";');
+            }else{
+            eval("document.getElementById('day"+i+"icon"+j+"').src = 'http://openweathermap.org/img/wn/'+data['list']["+cnt+"]['weather'][0]['icon']+'@2x.png';");  
+            eval('document.getElementById("day'+i+'desc'+j+'").innerText = data["list"]['+cnt+']["weather"][0]["main"];');
+            eval('document.getElementById("day'+i+'temp'+j+'").innerText = Math.round(data["list"]['+cnt+']["main"]["temp"]-273.15)+"°C";');
+            cnt += 2;
+            }
+          }
+        }
 
-        document.getElementById('day1desc1').innerText = '-';
+        // document.getElementById('day1icon1').src = 'https://www.flaticon.com/premium-icon/icons/svg/1628/1628954.svg';
+
+        // document.getElementById('day1desc1').innerText = '-';
        
-        document.getElementById("day1temp1").innerText = '-';
+        // document.getElementById("day1temp1").innerText = '-';
  
-        document.getElementById('day1icon2').src = 'https://www.flaticon.com/premium-icon/icons/svg/1628/1628954.svg';
+        // document.getElementById('day1icon2').src = 'https://www.flaticon.com/premium-icon/icons/svg/1628/1628954.svg';
  
-        document.getElementById('day1desc2').innerText = '-';
+        // document.getElementById('day1desc2').innerText = '-';
        
-        document.getElementById("day1temp2").innerText = '-';
+        // document.getElementById("day1temp2").innerText = '-';
  
-        document.getElementById('day1icon3').src = 'https://www.flaticon.com/premium-icon/icons/svg/1628/1628954.svg';
+        // document.getElementById('day1icon3').src = 'https://www.flaticon.com/premium-icon/icons/svg/1628/1628954.svg';
  
-        document.getElementById('day1desc3').innerText = '-';
+        // document.getElementById('day1desc3').innerText = '-';
        
-        document.getElementById("day1temp3").innerText = '-';
+        // document.getElementById("day1temp3").innerText = '-';
  
-        document.getElementById('day1icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][0]['weather'][0]['icon']+'@2x.png';
+        // document.getElementById('day1icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][0]['weather'][0]['icon']+'@2x.png';
  
-        document.getElementById('day1desc4').innerText = data['list'][0]['weather'][0]['main'];
+        // document.getElementById('day1desc4').innerText = data['list'][0]['weather'][0]['main'];
        
-        document.getElementById("day1temp4").innerText = Math.round(data['list'][0]['main']['temp']-273.15)+'°C';
+        // document.getElementById("day1temp4").innerText = Math.round(data['list'][0]['main']['temp']-273.15)+'°C';
 
-        document.getElementById('day2icon1').src = 'http://openweathermap.org/img/wn/'+data['list'][2]['weather'][0]['icon']+'@2x.png';
+        // document.getElementById('day2icon1').src = 'http://openweathermap.org/img/wn/'+data['list'][2]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day2desc1').innerText = data['list'][2]['weather'][0]['main'];
-      
-       document.getElementById("day2temp1").innerText = Math.round(data['list'][2]['main']['temp']-273.15)+'°C';
+        // document.getElementById('day2desc1').innerText = data['list'][2]['weather'][0]['main'];
+        
+        // document.getElementById("day2temp1").innerText = Math.round(data['list'][2]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day2icon2').src = 'http://openweathermap.org/img/wn/'+data['list'][4]['weather'][0]['icon']+'@2x.png';
+        // document.getElementById('day2icon2').src = 'http://openweathermap.org/img/wn/'+data['list'][4]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day2desc2').innerText = data['list'][4]['weather'][0]['main'];
-      
-       document.getElementById("day2temp2").innerText = Math.round(data['list'][4]['main']['temp']-273.15)+'°C';
+        // document.getElementById('day2desc2').innerText = data['list'][4]['weather'][0]['main'];
+        
+        // document.getElementById("day2temp2").innerText = Math.round(data['list'][4]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day2icon3').src = 'http://openweathermap.org/img/wn/'+data['list'][6]['weather'][0]['icon']+'@2x.png';
+        // document.getElementById('day2icon3').src = 'http://openweathermap.org/img/wn/'+data['list'][6]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day2desc3').innerText = data['list'][6]['weather'][0]['main'];
-      
-       document.getElementById("day2temp3").innerText = Math.round(data['list'][6]['main']['temp']-273.15)+'°C';
+        // document.getElementById('day2desc3').innerText = data['list'][6]['weather'][0]['main'];
+        
+        // document.getElementById("day2temp3").innerText = Math.round(data['list'][6]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day2icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][8]['weather'][0]['icon']+'@2x.png';
+        // document.getElementById('day2icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][8]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day2desc4').innerText = data['list'][8]['weather'][0]['main'];
-      
-       document.getElementById("day2temp4").innerText = Math.round(data['list'][8]['main']['temp']-273.15)+'°C';
+        // document.getElementById('day2desc4').innerText = data['list'][8]['weather'][0]['main'];
+        
+        // document.getElementById("day2temp4").innerText = Math.round(data['list'][8]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day3icon1').src = 'http://openweathermap.org/img/wn/'+data['list'][10]['weather'][0]['icon']+'@2x.png';
+        // document.getElementById('day3icon1').src = 'http://openweathermap.org/img/wn/'+data['list'][10]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day3desc1').innerText = data['list'][10]['weather'][0]['main'];
-      
-       document.getElementById("day3temp1").innerText = Math.round(data['list'][10]['main']['temp']-273.15)+'°C';
+        // document.getElementById('day3desc1').innerText = data['list'][10]['weather'][0]['main'];
+        
+        // document.getElementById("day3temp1").innerText = Math.round(data['list'][10]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day3icon2').src = 'http://openweathermap.org/img/wn/'+data['list'][12]['weather'][0]['icon']+'@2x.png';
+        // document.getElementById('day3icon2').src = 'http://openweathermap.org/img/wn/'+data['list'][12]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day3desc2').innerText = data['list'][12]['weather'][0]['main'];
-      
-       document.getElementById("day3temp2").innerText = Math.round(data['list'][12]['main']['temp']-273.15)+'°C';
+        // document.getElementById('day3desc2').innerText = data['list'][12]['weather'][0]['main'];
+        
+        // document.getElementById("day3temp2").innerText = Math.round(data['list'][12]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day3icon3').src = 'http://openweathermap.org/img/wn/'+data['list'][14]['weather'][0]['icon']+'@2x.png';
+        // document.getElementById('day3icon3').src = 'http://openweathermap.org/img/wn/'+data['list'][14]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day3desc3').innerText = data['list'][14]['weather'][0]['main'];
-      
-       document.getElementById("day3temp3").innerText = Math.round(data['list'][14]['main']['temp']-273.15)+'°C';
+        // document.getElementById('day3desc3').innerText = data['list'][14]['weather'][0]['main'];
+        
+        // document.getElementById("day3temp3").innerText = Math.round(data['list'][14]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day3icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][14]['weather'][0]['icon']+'@2x.png';
+        // document.getElementById('day3icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][14]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day3desc4').innerText = data['list'][16]['weather'][0]['main'];
-      
-       document.getElementById("day3temp4").innerText = Math.round(data['list'][16]['main']['temp']-273.15)+'°C';
+        // document.getElementById('day3desc4').innerText = data['list'][16]['weather'][0]['main'];
+        
+        // document.getElementById("day3temp4").innerText = Math.round(data['list'][16]['main']['temp']-273.15)+'°C';
         
       }
       else if(day1currtime>-1&&day1currtime<4){
-       document.getElementById('day1icon1').src = 'http://openweathermap.org/img/wn/'+data['list'][0]['weather'][0]['icon']+'@2x.png';
+        var cnt = 0;
+        for(let i = 1;i<4;i++){
+          for(let j = 1;j<5;j++){
+            if(i === 1 && (j === 2 || j===3)){
+              eval("document.getElementById('day"+i+"icon"+j+"').src = 'http://openweathermap.org/img/wn/'+data['list']["+(cnt+1)+"]['weather'][0]['icon']+'@2x.png';");  
+              eval('document.getElementById("day'+i+'desc'+j+'").innerText = data["list"]['+(cnt+1)+']["weather"][0]["main"];');
+              eval('document.getElementById("day'+i+'temp'+j+'").innerText = Math.round(data["list"]['+(cnt+1)+']["main"]["temp"]-273.15)+"°C";');
+              cnt += 2;
+            }else{
+            eval("document.getElementById('day"+i+"icon"+j+"').src = 'http://openweathermap.org/img/wn/'+data['list']["+cnt+"]['weather'][0]['icon']+'@2x.png';");  
+            eval('document.getElementById("day'+i+'desc'+j+'").innerText = data["list"]['+cnt+']["weather"][0]["main"];');
+            eval('document.getElementById("day'+i+'temp'+j+'").innerText = Math.round(data["list"]['+cnt+']["main"]["temp"]-273.15)+"°C";');
+            cnt += 2;
+            }
+          }
+        }
 
-       document.getElementById('day1desc1').innerText = data['list'][0]['weather'][0]['main'];
+      //  document.getElementById('day1icon1').src = 'http://openweathermap.org/img/wn/'+data['list'][0]['weather'][0]['icon']+'@2x.png';
+
+      //  document.getElementById('day1desc1').innerText = data['list'][0]['weather'][0]['main'];
       
-       document.getElementById("day1temp1").innerText = Math.round(data['list'][0]['main']['temp']-273.15)+'°C';
+      //  document.getElementById("day1temp1").innerText = Math.round(data['list'][0]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day1icon2').src = 'http://openweathermap.org/img/wn/'+data['list'][3]['weather'][0]['icon']+'@2x.png';
+      //  document.getElementById('day1icon2').src = 'http://openweathermap.org/img/wn/'+data['list'][3]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day1desc2').innerText = data['list'][3]['weather'][0]['main'];
+      //  document.getElementById('day1desc2').innerText = data['list'][3]['weather'][0]['main'];
       
-       document.getElementById("day1temp2").innerText = Math.round(data['list'][3]['main']['temp']-273.15)+'°C';
+      //  document.getElementById("day1temp2").innerText = Math.round(data['list'][3]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day1icon3').src = 'http://openweathermap.org/img/wn/'+data['list'][5]['weather'][0]['icon']+'@2x.png';
+      //  document.getElementById('day1icon3').src = 'http://openweathermap.org/img/wn/'+data['list'][5]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day1desc3').innerText = data['list'][5]['weather'][0]['main'];
+      //  document.getElementById('day1desc3').innerText = data['list'][5]['weather'][0]['main'];
       
-       document.getElementById("day1temp3").innerText = Math.round(data['list'][5]['main']['temp']-273.15)+'°C';
+      //  document.getElementById("day1temp3").innerText = Math.round(data['list'][5]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day1icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][6]['weather'][0]['icon']+'@2x.png';
+      //  document.getElementById('day1icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][6]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day1desc4').innerText = data['list'][6]['weather'][0]['main'];
+      //  document.getElementById('day1desc4').innerText = data['list'][6]['weather'][0]['main'];
       
-       document.getElementById("day1temp4").innerText = Math.round(data['list'][6]['main']['temp']-273.15)+'°C';
+      //  document.getElementById("day1temp4").innerText = Math.round(data['list'][6]['main']['temp']-273.15)+'°C';
         
-       document.getElementById('day2icon1').src = 'http://openweathermap.org/img/wn/'+data['list'][8]['weather'][0]['icon']+'@2x.png';
+      //  document.getElementById('day2icon1').src = 'http://openweathermap.org/img/wn/'+data['list'][8]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day2desc1').innerText = data['list'][8]['weather'][0]['main'];
+      //  document.getElementById('day2desc1').innerText = data['list'][8]['weather'][0]['main'];
       
-       document.getElementById("day2temp1").innerText = Math.round(data['list'][8]['main']['temp']-273.15)+'°C';
+      //  document.getElementById("day2temp1").innerText = Math.round(data['list'][8]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day2icon2').src = 'http://openweathermap.org/img/wn/'+data['list'][10]['weather'][0]['icon']+'@2x.png';
+      //  document.getElementById('day2icon2').src = 'http://openweathermap.org/img/wn/'+data['list'][10]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day2desc2').innerText = data['list'][10]['weather'][0]['main'];
+      //  document.getElementById('day2desc2').innerText = data['list'][10]['weather'][0]['main'];
       
-       document.getElementById("day2temp2").innerText = Math.round(data['list'][10]['main']['temp']-273.15)+'°C';
+      //  document.getElementById("day2temp2").innerText = Math.round(data['list'][10]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day2icon3').src = 'http://openweathermap.org/img/wn/'+data['list'][12]['weather'][0]['icon']+'@2x.png';
+      //  document.getElementById('day2icon3').src = 'http://openweathermap.org/img/wn/'+data['list'][12]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day2desc3').innerText = data['list'][12]['weather'][0]['main'];
+      //  document.getElementById('day2desc3').innerText = data['list'][12]['weather'][0]['main'];
       
-       document.getElementById("day2temp3").innerText = Math.round(data['list'][12]['main']['temp']-273.15)+'°C';
+      //  document.getElementById("day2temp3").innerText = Math.round(data['list'][12]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day2icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][14]['weather'][0]['icon']+'@2x.png';
+      //  document.getElementById('day2icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][14]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day2desc4').innerText = data['list'][14]['weather'][0]['main'];
+      //  document.getElementById('day2desc4').innerText = data['list'][14]['weather'][0]['main'];
       
-       document.getElementById("day2temp4").innerText = Math.round(data['list'][14]['main']['temp']-273.15)+'°C';
+      //  document.getElementById("day2temp4").innerText = Math.round(data['list'][14]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day3icon1').src = 'http://openweathermap.org/img/wn/'+data['list'][16]['weather'][0]['icon']+'@2x.png';
+      //  document.getElementById('day3icon1').src = 'http://openweathermap.org/img/wn/'+data['list'][16]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day3desc1').innerText = data['list'][16]['weather'][0]['main'];
+      //  document.getElementById('day3desc1').innerText = data['list'][16]['weather'][0]['main'];
       
-       document.getElementById("day3temp1").innerText = Math.round(data['list'][16]['main']['temp']-273.15)+'°C';
+      //  document.getElementById("day3temp1").innerText = Math.round(data['list'][16]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day3icon2').src = 'http://openweathermap.org/img/wn/'+data['list'][18]['weather'][0]['icon']+'@2x.png';
+      //  document.getElementById('day3icon2').src = 'http://openweathermap.org/img/wn/'+data['list'][18]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day3desc2').innerText = data['list'][18]['weather'][0]['main'];
+      //  document.getElementById('day3desc2').innerText = data['list'][18]['weather'][0]['main'];
       
-       document.getElementById("day3temp2").innerText = Math.round(data['list'][18]['main']['temp']-273.15)+'°C';
+      //  document.getElementById("day3temp2").innerText = Math.round(data['list'][18]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day3icon3').src = 'http://openweathermap.org/img/wn/'+data['list'][20]['weather'][0]['icon']+'@2x.png';
+      //  document.getElementById('day3icon3').src = 'http://openweathermap.org/img/wn/'+data['list'][20]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day3desc3').innerText = data['list'][20]['weather'][0]['main'];
+      //  document.getElementById('day3desc3').innerText = data['list'][20]['weather'][0]['main'];
       
-       document.getElementById("day3temp3").innerText = Math.round(data['list'][20]['main']['temp']-273.15)+'°C';
+      //  document.getElementById("day3temp3").innerText = Math.round(data['list'][20]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day3icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][22]['weather'][0]['icon']+'@2x.png';
+      //  document.getElementById('day3icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][22]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day3desc4').innerText = data['list'][22]['weather'][0]['main'];
+      //  document.getElementById('day3desc4').innerText = data['list'][22]['weather'][0]['main'];
       
-       document.getElementById("day3temp4").innerText = Math.round(data['list'][22]['main']['temp']-273.15)+'°C';
+      //  document.getElementById("day3temp4").innerText = Math.round(data['list'][22]['main']['temp']-273.15)+'°C';
         
       }
     })
@@ -411,29 +486,41 @@ function weatherBalloon( cityName ) {
         //주간예보
       
 
-      document.getElementById("day1").getElementsByTagName("img")[0]["src"] = 'http://openweathermap.org/img/wn/'+data['list'][8]['weather'][0]['icon']+'@2x.png';
-      document.getElementById("day2").getElementsByTagName("img")[0]["src"] = 'http://openweathermap.org/img/wn/'+data['list'][16]['weather'][0]['icon']+'@2x.png';
-      document.getElementById("day3").getElementsByTagName("img")[0]["src"] = 'http://openweathermap.org/img/wn/'+data['list'][24]['weather'][0]['icon']+'@2x.png';
-      document.getElementById("day4").getElementsByTagName("img")[0]["src"] = 'http://openweathermap.org/img/wn/'+data['list'][32]['weather'][0]['icon']+'@2x.png';
-      document.getElementById("day5").getElementsByTagName("img")[0]["src"] = 'http://openweathermap.org/img/wn/'+data['list'][39]['weather'][0]['icon']+'@2x.png';
+      // document.getElementById("day1").getElementsByTagName("img")[0]["src"] = 'http://openweathermap.org/img/wn/'+data['list'][8]['weather'][0]['icon']+'@2x.png';
+      // document.getElementById("day2").getElementsByTagName("img")[0]["src"] = 'http://openweathermap.org/img/wn/'+data['list'][16]['weather'][0]['icon']+'@2x.png';
+      // document.getElementById("day3").getElementsByTagName("img")[0]["src"] = 'http://openweathermap.org/img/wn/'+data['list'][24]['weather'][0]['icon']+'@2x.png';
+      // document.getElementById("day4").getElementsByTagName("img")[0]["src"] = 'http://openweathermap.org/img/wn/'+data['list'][32]['weather'][0]['icon']+'@2x.png';
+      // document.getElementById("day5").getElementsByTagName("img")[0]["src"] = 'http://openweathermap.org/img/wn/'+data['list'][39]['weather'][0]['icon']+'@2x.png';
 
 
       let week = ['일', '월', '화', '수', '목', '금', '토'];
-      let theday1 = data['list'][8]["dt_txt"].slice(0,10);
-      let day1OfWeek = week[new Date(theday1).getDay()];    
-      document.getElementById("day1").getElementsByTagName("div")[0].innerHTML = data['list'][8]["dt_txt"].slice(5,10)+'<br/>'+day1OfWeek;
+      for(let i = 1;i<6;i++){
+        if(i===5){
+          eval('document.getElementById("day'+i+'").getElementsByTagName("img")[0]["src"] = "http://openweathermap.org/img/wn/"+data["list"]['+39+']["weather"][0]["icon"]+"@2x.png";'); 
+        }else{
+          eval('document.getElementById("day'+i+'").getElementsByTagName("img")[0]["src"] = "http://openweathermap.org/img/wn/"+data["list"]['+i*8+']["weather"][0]["icon"]+"@2x.png";');
+        }
+        
 
-      let theday2 = data['list'][16]["dt_txt"].slice(0,10)
-      let day2OfWeek = week[new Date(theday2).getDay()]    
-      document.getElementById("day2").getElementsByTagName("div")[0].innerHTML = data['list'][16]["dt_txt"].slice(5,10)+'<br/>'+day2OfWeek;
+        eval('var theday'+i+'= data["list"]['+i*8+']["dt_txt"].slice(0,10);');
+        eval('day'+i+'OfWeek = week[new Date(theday'+i+').getDay()];');
+        eval('document.getElementById("day'+i+'").getElementsByTagName("div")[0].innerHTML = data["list"]['+i*8+']["dt_txt"].slice(5,10) + "<br/>"+day'+i+'OfWeek;');
+          }
+      // let theday1 = data['list'][8]["dt_txt"].slice(0,10);
+      // let day1OfWeek = week[new Date(theday1).getDay()];    
+      // document.getElementById("day1").getElementsByTagName("div")[0].innerHTML = data['list'][8]["dt_txt"].slice(5,10)+'<br/>'+day1OfWeek;
 
-      let theday3 = data['list'][24]["dt_txt"].slice(0,10);
-      let day3OfWeek = week[new Date(theday3).getDay()];    
-      document.getElementById("day3").getElementsByTagName("div")[0].innerHTML = data['list'][24]["dt_txt"].slice(5,10)+'<br/>'+day3OfWeek;
+      // let theday2 = data['list'][16]["dt_txt"].slice(0,10)
+      // let day2OfWeek = week[new Date(theday2).getDay()]    
+      // document.getElementById("day2").getElementsByTagName("div")[0].innerHTML = data['list'][16]["dt_txt"].slice(5,10)+'<br/>'+day2OfWeek;
 
-      let theday4 = data['list'][32]["dt_txt"].slice(0,10)
-      let day4OfWeek = week[new Date(theday4).getDay()]    
-      document.getElementById("day4").getElementsByTagName("div")[0].innerHTML = data['list'][32]["dt_txt"].slice(5,10)+'<br/>'+day4OfWeek;
+      // let theday3 = data['list'][24]["dt_txt"].slice(0,10);
+      // let day3OfWeek = week[new Date(theday3).getDay()];    
+      // document.getElementById("day3").getElementsByTagName("div")[0].innerHTML = data['list'][24]["dt_txt"].slice(5,10)+'<br/>'+day3OfWeek;
+
+      // let theday4 = data['list'][32]["dt_txt"].slice(0,10)
+      // let day4OfWeek = week[new Date(theday4).getDay()]    
+      // document.getElementById("day4").getElementsByTagName("div")[0].innerHTML = data['list'][32]["dt_txt"].slice(5,10)+'<br/>'+day4OfWeek;
 
 
 
@@ -445,302 +532,362 @@ function weatherBalloon( cityName ) {
         let day1currtime = parseInt(data['list'][0]['dt_txt'].slice(11,13));
         console.log(data);
         if(day1currtime>3&&day1currtime<10){//처음으로 들어오는 시간이 새벽기준인 4시보다 늦었을때
-        
-          document.getElementById('day1icon1').src = 'https://image.flaticon.com/icons/svg/271/271207.svg';
+          var cnt = 0;
+          for(let i = 1;i<4;i++){
+            for(let j = 1;j<5;j++){
+              if(i === 1 && j === 1){
+                eval('document.getElementById("day'+i+'icon'+j+'").src = "https://image.flaticon.com/icons/svg/271/271207.svg";');
+                eval("document.getElementById('day"+i+"desc"+j+"').innerText = '-';");
+                eval('document.getElementById("day'+i+'temp'+j+'").innerText = "-";');
+              }else{
+              eval("document.getElementById('day"+i+"icon"+j+"').src = 'http://openweathermap.org/img/wn/'+data['list']["+cnt+"]['weather'][0]['icon']+'@2x.png';");  
+              eval('document.getElementById("day'+i+'desc'+j+'").innerText = data["list"]['+cnt+']["weather"][0]["main"];');
+              eval('document.getElementById("day'+i+'temp'+j+'").innerText = Math.round(data["list"]['+cnt+']["main"]["temp"]-273.15)+"°C";');
+              cnt += 2;
+              }
+            }
+          }
+          // document.getElementById('day1icon1').src = 'https://image.flaticon.com/icons/svg/271/271207.svg';
 
-          document.getElementById('day1desc1').innerText = '-';
+          // document.getElementById('day1desc1').innerText = '-';
          
-          document.getElementById("day1temp1").innerText = '-';
+          // document.getElementById("day1temp1").innerText = '-';
    
-          document.getElementById('day1icon2').src = 'http://openweathermap.org/img/wn/'+data['list'][0]['weather'][0]['icon']+'@2x.png';
+          // document.getElementById('day1icon2').src = 'http://openweathermap.org/img/wn/'+data['list'][0]['weather'][0]['icon']+'@2x.png';
    
-          document.getElementById('day1desc2').innerText = data['list'][0]['weather'][0]['main'];
+          // document.getElementById('day1desc2').innerText = data['list'][0]['weather'][0]['main'];
          
-          document.getElementById("day1temp2").innerText = Math.round(data['list'][0]['main']['temp']-273.15)+'°C';
+          // document.getElementById("day1temp2").innerText = Math.round(data['list'][0]['main']['temp']-273.15)+'°C';
    
-          document.getElementById('day1icon3').src = 'http://openweathermap.org/img/wn/'+data['list'][2]['weather'][0]['icon']+'@2x.png';
+          // document.getElementById('day1icon3').src = 'http://openweathermap.org/img/wn/'+data['list'][2]['weather'][0]['icon']+'@2x.png';
    
-          document.getElementById('day1desc3').innerText = data['list'][2]['weather'][0]['main'];
+          // document.getElementById('day1desc3').innerText = data['list'][2]['weather'][0]['main'];
          
-          document.getElementById("day1temp3").innerText = Math.round(data['list'][2]['main']['temp']-273.15)+'°C';
+          // document.getElementById("day1temp3").innerText = Math.round(data['list'][2]['main']['temp']-273.15)+'°C';
    
-          document.getElementById('day1icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][4]['weather'][0]['icon']+'@2x.png';
+          // document.getElementById('day1icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][4]['weather'][0]['icon']+'@2x.png';
    
-          document.getElementById('day1desc4').innerText = data['list'][4]['weather'][0]['main'];
+          // document.getElementById('day1desc4').innerText = data['list'][4]['weather'][0]['main'];
          
-          document.getElementById("day1temp4").innerText = Math.round(data['list'][4]['main']['temp']-273.15)+'°C';
+          // document.getElementById("day1temp4").innerText = Math.round(data['list'][4]['main']['temp']-273.15)+'°C';
 
-          document.getElementById('day2icon1').src = 'http://openweathermap.org/img/wn/'+data['list'][6]['weather'][0]['icon']+'@2x.png';
+          // document.getElementById('day2icon1').src = 'http://openweathermap.org/img/wn/'+data['list'][6]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day2desc1').innerText = data['list'][6]['weather'][0]['main'];
-      
-       document.getElementById("day2temp1").innerText = Math.round(data['list'][6]['main']['temp']-273.15)+'°C';
+          // document.getElementById('day2desc1').innerText = data['list'][6]['weather'][0]['main'];
+          
+          // document.getElementById("day2temp1").innerText = Math.round(data['list'][6]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day2icon2').src = 'http://openweathermap.org/img/wn/'+data['list'][8]['weather'][0]['icon']+'@2x.png';
+          // document.getElementById('day2icon2').src = 'http://openweathermap.org/img/wn/'+data['list'][8]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day2desc2').innerText = data['list'][8]['weather'][0]['main'];
-      
-       document.getElementById("day2temp2").innerText = Math.round(data['list'][8]['main']['temp']-273.15)+'°C';
+          // document.getElementById('day2desc2').innerText = data['list'][8]['weather'][0]['main'];
+          
+          // document.getElementById("day2temp2").innerText = Math.round(data['list'][8]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day2icon3').src = 'http://openweathermap.org/img/wn/'+data['list'][10]['weather'][0]['icon']+'@2x.png';
+          // document.getElementById('day2icon3').src = 'http://openweathermap.org/img/wn/'+data['list'][10]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day2desc3').innerText = data['list'][10]['weather'][0]['main'];
-      
-       document.getElementById("day2temp3").innerText = Math.round(data['list'][10]['main']['temp']-273.15)+'°C';
+          // document.getElementById('day2desc3').innerText = data['list'][10]['weather'][0]['main'];
+          
+          // document.getElementById("day2temp3").innerText = Math.round(data['list'][10]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day2icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][12]['weather'][0]['icon']+'@2x.png';
+          // document.getElementById('day2icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][12]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day2desc4').innerText = data['list'][12]['weather'][0]['main'];
-      
-       document.getElementById("day2temp4").innerText = Math.round(data['list'][12]['main']['temp']-273.15)+'°C';
-       
-       document.getElementById('day3icon1').src = 'http://openweathermap.org/img/wn/'+data['list'][14]['weather'][0]['icon']+'@2x.png';
+          // document.getElementById('day2desc4').innerText = data['list'][12]['weather'][0]['main'];
+          
+          // document.getElementById("day2temp4").innerText = Math.round(data['list'][12]['main']['temp']-273.15)+'°C';
+          
+          // document.getElementById('day3icon1').src = 'http://openweathermap.org/img/wn/'+data['list'][14]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day3desc1').innerText = data['list'][14]['weather'][0]['main'];
-      
-       document.getElementById("day3temp1").innerText = Math.round(data['list'][14]['main']['temp']-273.15)+'°C';
+          // document.getElementById('day3desc1').innerText = data['list'][14]['weather'][0]['main'];
+          
+          // document.getElementById("day3temp1").innerText = Math.round(data['list'][14]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day3icon2').src = 'http://openweathermap.org/img/wn/'+data['list'][16]['weather'][0]['icon']+'@2x.png';
+          // document.getElementById('day3icon2').src = 'http://openweathermap.org/img/wn/'+data['list'][16]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day3desc2').innerText = data['list'][16]['weather'][0]['main'];
-      
-       document.getElementById("day3temp2").innerText = Math.round(data['list'][16]['main']['temp']-273.15)+'°C';
+          // document.getElementById('day3desc2').innerText = data['list'][16]['weather'][0]['main'];
+          
+          // document.getElementById("day3temp2").innerText = Math.round(data['list'][16]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day3icon3').src = 'http://openweathermap.org/img/wn/'+data['list'][18]['weather'][0]['icon']+'@2x.png';
+          // document.getElementById('day3icon3').src = 'http://openweathermap.org/img/wn/'+data['list'][18]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day3desc3').innerText = data['list'][18]['weather'][0]['main'];
-      
-       document.getElementById("day3temp3").innerText = Math.round(data['list'][18]['main']['temp']-273.15)+'°C';
+          // document.getElementById('day3desc3').innerText = data['list'][18]['weather'][0]['main'];
+          
+          // document.getElementById("day3temp3").innerText = Math.round(data['list'][18]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day3icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][20]['weather'][0]['icon']+'@2x.png';
+          // document.getElementById('day3icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][20]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day3desc4').innerText = data['list'][20]['weather'][0]['main'];
-      
-       document.getElementById("day3temp4").innerText = Math.round(data['list'][20]['main']['temp']-273.15)+'°C';
-        
+          // document.getElementById('day3desc4').innerText = data['list'][20]['weather'][0]['main'];
+          
+          // document.getElementById("day3temp4").innerText = Math.round(data['list'][20]['main']['temp']-273.15)+'°C';
+            
            }
        else if(day1currtime>9&&day1currtime<18){
-        document.getElementById('day1icon1').src = 'https://image.flaticon.com/icons/svg/271/271207.svg';
+        var cnt = 0;
+        for(let i = 1;i<4;i++){
+          for(let j = 1;j<5;j++){
+            if(i === 1 && (j === 1 || j===2)){
+              eval('document.getElementById("day'+i+'icon'+j+'").src = "https://image.flaticon.com/icons/svg/271/271207.svg";');
+              eval("document.getElementById('day"+i+"desc"+j+"').innerText = '-';");
+              eval('document.getElementById("day'+i+'temp'+j+'").innerText = "-";');
+            }else{
+            eval("document.getElementById('day"+i+"icon"+j+"').src = 'http://openweathermap.org/img/wn/'+data['list']["+cnt+"]['weather'][0]['icon']+'@2x.png';");  
+            eval('document.getElementById("day'+i+'desc'+j+'").innerText = data["list"]['+cnt+']["weather"][0]["main"];');
+            eval('document.getElementById("day'+i+'temp'+j+'").innerText = Math.round(data["list"]['+cnt+']["main"]["temp"]-273.15)+"°C";');
+            cnt += 2;
+            }
+          }
+        }
+        // document.getElementById('day1icon1').src = 'https://image.flaticon.com/icons/svg/271/271207.svg';
 
-        document.getElementById('day1desc1').innerText = '-';
+        // document.getElementById('day1desc1').innerText = '-';
        
-        document.getElementById("day1temp1").innerText = '-';
+        // document.getElementById("day1temp1").innerText = '-';
  
-        document.getElementById('day1icon2').src = 'https://image.flaticon.com/icons/svg/271/271207.svg';
+        // document.getElementById('day1icon2').src = 'https://image.flaticon.com/icons/svg/271/271207.svg';
  
-        document.getElementById('day1desc2').innerText = '-';
+        // document.getElementById('day1desc2').innerText = '-';
        
-        document.getElementById("day1temp2").innerText = '-';
+        // document.getElementById("day1temp2").innerText = '-';
  
-        document.getElementById('day1icon3').src = 'http://openweathermap.org/img/wn/'+data['list'][0]['weather'][0]['icon']+'@2x.png';
+        // document.getElementById('day1icon3').src = 'http://openweathermap.org/img/wn/'+data['list'][0]['weather'][0]['icon']+'@2x.png';
  
-        document.getElementById('day1desc3').innerText = data['list'][0]['weather'][0]['main'];
+        // document.getElementById('day1desc3').innerText = data['list'][0]['weather'][0]['main'];
        
-        document.getElementById("day1temp3").innerText = Math.round(data['list'][0]['main']['temp']-273.15)+'°C';
+        // document.getElementById("day1temp3").innerText = Math.round(data['list'][0]['main']['temp']-273.15)+'°C';
  
-        document.getElementById('day1icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][2]['weather'][0]['icon']+'@2x.png';
+        // document.getElementById('day1icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][2]['weather'][0]['icon']+'@2x.png';
  
-        document.getElementById('day1desc4').innerText = data['list'][2]['weather'][0]['main'];
+        // document.getElementById('day1desc4').innerText = data['list'][2]['weather'][0]['main'];
        
-        document.getElementById("day1temp4").innerText = Math.round(data['list'][2]['main']['temp']-273.15)+'°C';
+        // document.getElementById("day1temp4").innerText = Math.round(data['list'][2]['main']['temp']-273.15)+'°C';
 
-        document.getElementById('day2icon1').src = 'http://openweathermap.org/img/wn/'+data['list'][4]['weather'][0]['icon']+'@2x.png';
+        // document.getElementById('day2icon1').src = 'http://openweathermap.org/img/wn/'+data['list'][4]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day2desc1').innerText = data['list'][4]['weather'][0]['main'];
-      
-       document.getElementById("day2temp1").innerText = Math.round(data['list'][4]['main']['temp']-273.15)+'°C';
+        // document.getElementById('day2desc1').innerText = data['list'][4]['weather'][0]['main'];
+        
+        // document.getElementById("day2temp1").innerText = Math.round(data['list'][4]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day2icon2').src = 'http://openweathermap.org/img/wn/'+data['list'][6]['weather'][0]['icon']+'@2x.png';
+        // document.getElementById('day2icon2').src = 'http://openweathermap.org/img/wn/'+data['list'][6]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day2desc2').innerText = data['list'][6]['weather'][0]['main'];
-      
-       document.getElementById("day2temp2").innerText = Math.round(data['list'][6]['main']['temp']-273.15)+'°C';
+        // document.getElementById('day2desc2').innerText = data['list'][6]['weather'][0]['main'];
+        
+        // document.getElementById("day2temp2").innerText = Math.round(data['list'][6]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day2icon3').src = 'http://openweathermap.org/img/wn/'+data['list'][8]['weather'][0]['icon']+'@2x.png';
+        // document.getElementById('day2icon3').src = 'http://openweathermap.org/img/wn/'+data['list'][8]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day2desc3').innerText = data['list'][8]['weather'][0]['main'];
-      
-       document.getElementById("day2temp3").innerText = Math.round(data['list'][8]['main']['temp']-273.15)+'°C';
+        // document.getElementById('day2desc3').innerText = data['list'][8]['weather'][0]['main'];
+        
+        // document.getElementById("day2temp3").innerText = Math.round(data['list'][8]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day2icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][10]['weather'][0]['icon']+'@2x.png';
+        // document.getElementById('day2icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][10]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day2desc4').innerText = data['list'][10]['weather'][0]['main'];
-      
-       document.getElementById("day2temp4").innerText = Math.round(data['list'][10]['main']['temp']-273.15)+'°C';
+        // document.getElementById('day2desc4').innerText = data['list'][10]['weather'][0]['main'];
+        
+        // document.getElementById("day2temp4").innerText = Math.round(data['list'][10]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day3icon1').src = 'http://openweathermap.org/img/wn/'+data['list'][12]['weather'][0]['icon']+'@2x.png';
+        // document.getElementById('day3icon1').src = 'http://openweathermap.org/img/wn/'+data['list'][12]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day3desc1').innerText = data['list'][12]['weather'][0]['main'];
-      
-       document.getElementById("day3temp1").innerText = Math.round(data['list'][12]['main']['temp']-273.15)+'°C';
+        // document.getElementById('day3desc1').innerText = data['list'][12]['weather'][0]['main'];
+        
+        // document.getElementById("day3temp1").innerText = Math.round(data['list'][12]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day3icon2').src = 'http://openweathermap.org/img/wn/'+data['list'][14]['weather'][0]['icon']+'@2x.png';
+        // document.getElementById('day3icon2').src = 'http://openweathermap.org/img/wn/'+data['list'][14]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day3desc2').innerText = data['list'][14]['weather'][0]['main'];
-      
-       document.getElementById("day3temp2").innerText = Math.round(data['list'][14]['main']['temp']-273.15)+'°C';
+        // document.getElementById('day3desc2').innerText = data['list'][14]['weather'][0]['main'];
+        
+        // document.getElementById("day3temp2").innerText = Math.round(data['list'][14]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day3icon3').src = 'http://openweathermap.org/img/wn/'+data['list'][16]['weather'][0]['icon']+'@2x.png';
+        // document.getElementById('day3icon3').src = 'http://openweathermap.org/img/wn/'+data['list'][16]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day3desc3').innerText = data['list'][16]['weather'][0]['main'];
-      
-       document.getElementById("day3temp3").innerText = Math.round(data['list'][16]['main']['temp']-273.15)+'°C';
+        // document.getElementById('day3desc3').innerText = data['list'][16]['weather'][0]['main'];
+        
+        // document.getElementById("day3temp3").innerText = Math.round(data['list'][16]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day3icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][18]['weather'][0]['icon']+'@2x.png';
+        // document.getElementById('day3icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][18]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day3desc4').innerText = data['list'][18]['weather'][0]['main'];
-      
-       document.getElementById("day3temp4").innerText = Math.round(data['list'][18]['main']['temp']-273.15)+'°C';
+        // document.getElementById('day3desc4').innerText = data['list'][18]['weather'][0]['main'];
+        
+        // document.getElementById("day3temp4").innerText = Math.round(data['list'][18]['main']['temp']-273.15)+'°C';
         
         
        }
        else if(day1currtime>17&&day1currtime<24){
-         console.log(data);
-        document.getElementById('day1icon1').src = 'https://www.flaticon.com/premium-icon/icons/svg/1628/1628954.svg';
+        console.log(data);
+        var cnt = 0;
+       for(let i = 1;i<4;i++){
+         for(let j = 1;j<5;j++){
+           if(i === 1 && (j === 1 || j===2 || j === 3)){
+             eval('document.getElementById("day'+i+'icon'+j+'").src = "https://image.flaticon.com/icons/svg/271/271207.svg";');
+             eval("document.getElementById('day"+i+"desc"+j+"').innerText = '-';");
+             eval('document.getElementById("day'+i+'temp'+j+'").innerText = "-";');
+           }else{
+           eval("document.getElementById('day"+i+"icon"+j+"').src = 'http://openweathermap.org/img/wn/'+data['list']["+cnt+"]['weather'][0]['icon']+'@2x.png';");  
+           eval('document.getElementById("day'+i+'desc'+j+'").innerText = data["list"]['+cnt+']["weather"][0]["main"];');
+           eval('document.getElementById("day'+i+'temp'+j+'").innerText = Math.round(data["list"]['+cnt+']["main"]["temp"]-273.15)+"°C";');
+           cnt += 2;
+           }
+         }
+       }
+        // document.getElementById('day1icon1').src = 'https://www.flaticon.com/premium-icon/icons/svg/1628/1628954.svg';
 
-        document.getElementById('day1desc1').innerText = '-';
+        // document.getElementById('day1desc1').innerText = '-';
        
-        document.getElementById("day1temp1").innerText = '-';
+        // document.getElementById("day1temp1").innerText = '-';
  
-        document.getElementById('day1icon2').src = 'https://www.flaticon.com/premium-icon/icons/svg/1628/1628954.svg';
+        // document.getElementById('day1icon2').src = 'https://www.flaticon.com/premium-icon/icons/svg/1628/1628954.svg';
  
-        document.getElementById('day1desc2').innerText = '-';
+        // document.getElementById('day1desc2').innerText = '-';
        
-        document.getElementById("day1temp2").innerText = '-';
+        // document.getElementById("day1temp2").innerText = '-';
  
-        document.getElementById('day1icon3').src = 'https://www.flaticon.com/premium-icon/icons/svg/1628/1628954.svg';
+        // document.getElementById('day1icon3').src = 'https://www.flaticon.com/premium-icon/icons/svg/1628/1628954.svg';
  
-        document.getElementById('day1desc3').innerText = '-';
+        // document.getElementById('day1desc3').innerText = '-';
        
-        document.getElementById("day1temp3").innerText = '-';
+        // document.getElementById("day1temp3").innerText = '-';
  
-        document.getElementById('day1icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][0]['weather'][0]['icon']+'@2x.png';
+        // document.getElementById('day1icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][0]['weather'][0]['icon']+'@2x.png';
  
-        document.getElementById('day1desc4').innerText = data['list'][0]['weather'][0]['main'];
+        // document.getElementById('day1desc4').innerText = data['list'][0]['weather'][0]['main'];
        
-        document.getElementById("day1temp4").innerText = Math.round(data['list'][0]['main']['temp']-273.15)+'°C';
+        // document.getElementById("day1temp4").innerText = Math.round(data['list'][0]['main']['temp']-273.15)+'°C';
 
-        document.getElementById('day2icon1').src = 'http://openweathermap.org/img/wn/'+data['list'][2]['weather'][0]['icon']+'@2x.png';
+        // document.getElementById('day2icon1').src = 'http://openweathermap.org/img/wn/'+data['list'][2]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day2desc1').innerText = data['list'][2]['weather'][0]['main'];
-      
-       document.getElementById("day2temp1").innerText = Math.round(data['list'][2]['main']['temp']-273.15)+'°C';
+        // document.getElementById('day2desc1').innerText = data['list'][2]['weather'][0]['main'];
+        
+        // document.getElementById("day2temp1").innerText = Math.round(data['list'][2]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day2icon2').src = 'http://openweathermap.org/img/wn/'+data['list'][4]['weather'][0]['icon']+'@2x.png';
+        // document.getElementById('day2icon2').src = 'http://openweathermap.org/img/wn/'+data['list'][4]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day2desc2').innerText = data['list'][4]['weather'][0]['main'];
-      
-       document.getElementById("day2temp2").innerText = Math.round(data['list'][4]['main']['temp']-273.15)+'°C';
+        // document.getElementById('day2desc2').innerText = data['list'][4]['weather'][0]['main'];
+        
+        // document.getElementById("day2temp2").innerText = Math.round(data['list'][4]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day2icon3').src = 'http://openweathermap.org/img/wn/'+data['list'][6]['weather'][0]['icon']+'@2x.png';
+        // document.getElementById('day2icon3').src = 'http://openweathermap.org/img/wn/'+data['list'][6]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day2desc3').innerText = data['list'][6]['weather'][0]['main'];
-      
-       document.getElementById("day2temp3").innerText = Math.round(data['list'][6]['main']['temp']-273.15)+'°C';
+        // document.getElementById('day2desc3').innerText = data['list'][6]['weather'][0]['main'];
+        
+        // document.getElementById("day2temp3").innerText = Math.round(data['list'][6]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day2icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][8]['weather'][0]['icon']+'@2x.png';
+        // document.getElementById('day2icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][8]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day2desc4').innerText = data['list'][8]['weather'][0]['main'];
-      
-       document.getElementById("day2temp4").innerText = Math.round(data['list'][8]['main']['temp']-273.15)+'°C';
+        // document.getElementById('day2desc4').innerText = data['list'][8]['weather'][0]['main'];
+        
+        // document.getElementById("day2temp4").innerText = Math.round(data['list'][8]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day3icon1').src = 'http://openweathermap.org/img/wn/'+data['list'][10]['weather'][0]['icon']+'@2x.png';
+        // document.getElementById('day3icon1').src = 'http://openweathermap.org/img/wn/'+data['list'][10]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day3desc1').innerText = data['list'][10]['weather'][0]['main'];
-      
-       document.getElementById("day3temp1").innerText = Math.round(data['list'][10]['main']['temp']-273.15)+'°C';
+        // document.getElementById('day3desc1').innerText = data['list'][10]['weather'][0]['main'];
+        
+        // document.getElementById("day3temp1").innerText = Math.round(data['list'][10]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day3icon2').src = 'http://openweathermap.org/img/wn/'+data['list'][12]['weather'][0]['icon']+'@2x.png';
+        // document.getElementById('day3icon2').src = 'http://openweathermap.org/img/wn/'+data['list'][12]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day3desc2').innerText = data['list'][12]['weather'][0]['main'];
-      
-       document.getElementById("day3temp2").innerText = Math.round(data['list'][12]['main']['temp']-273.15)+'°C';
+        // document.getElementById('day3desc2').innerText = data['list'][12]['weather'][0]['main'];
+        
+        // document.getElementById("day3temp2").innerText = Math.round(data['list'][12]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day3icon3').src = 'http://openweathermap.org/img/wn/'+data['list'][14]['weather'][0]['icon']+'@2x.png';
+        // document.getElementById('day3icon3').src = 'http://openweathermap.org/img/wn/'+data['list'][14]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day3desc3').innerText = data['list'][14]['weather'][0]['main'];
-      
-       document.getElementById("day3temp3").innerText = Math.round(data['list'][14]['main']['temp']-273.15)+'°C';
+        // document.getElementById('day3desc3').innerText = data['list'][14]['weather'][0]['main'];
+        
+        // document.getElementById("day3temp3").innerText = Math.round(data['list'][14]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day3icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][14]['weather'][0]['icon']+'@2x.png';
+        // document.getElementById('day3icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][14]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day3desc4').innerText = data['list'][16]['weather'][0]['main'];
-      
-       document.getElementById("day3temp4").innerText = Math.round(data['list'][16]['main']['temp']-273.15)+'°C';
+        // document.getElementById('day3desc4').innerText = data['list'][16]['weather'][0]['main'];
+        
+        // document.getElementById("day3temp4").innerText = Math.round(data['list'][16]['main']['temp']-273.15)+'°C';
         
       }
       else if(day1currtime>-1&&day1currtime<4){
-       document.getElementById('day1icon1').src = 'http://openweathermap.org/img/wn/'+data['list'][0]['weather'][0]['icon']+'@2x.png';
+        var cnt = 0;
+        for(let i = 1;i<4;i++){
+          for(let j = 1;j<5;j++){
+            if(i === 1 && (j === 2 || j===3)){
+              eval("document.getElementById('day"+i+"icon"+j+"').src = 'http://openweathermap.org/img/wn/'+data['list']["+(cnt+1)+"]['weather'][0]['icon']+'@2x.png';");  
+              eval('document.getElementById("day'+i+'desc'+j+'").innerText = data["list"]['+(cnt+1)+']["weather"][0]["main"];');
+              eval('document.getElementById("day'+i+'temp'+j+'").innerText = Math.round(data["list"]['+(cnt+1)+']["main"]["temp"]-273.15)+"°C";');
+              cnt += 2;
+            }else{
+            eval("document.getElementById('day"+i+"icon"+j+"').src = 'http://openweathermap.org/img/wn/'+data['list']["+cnt+"]['weather'][0]['icon']+'@2x.png';");  
+            eval('document.getElementById("day'+i+'desc'+j+'").innerText = data["list"]['+cnt+']["weather"][0]["main"];');
+            eval('document.getElementById("day'+i+'temp'+j+'").innerText = Math.round(data["list"]['+cnt+']["main"]["temp"]-273.15)+"°C";');
+            cnt += 2;
+            }
+          }
+        }
+      //  document.getElementById('day1icon1').src = 'http://openweathermap.org/img/wn/'+data['list'][0]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day1desc1').innerText = data['list'][0]['weather'][0]['main'];
+      //  document.getElementById('day1desc1').innerText = data['list'][0]['weather'][0]['main'];
       
-       document.getElementById("day1temp1").innerText = Math.round(data['list'][0]['main']['temp']-273.15)+'°C';
+      //  document.getElementById("day1temp1").innerText = Math.round(data['list'][0]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day1icon2').src = 'http://openweathermap.org/img/wn/'+data['list'][3]['weather'][0]['icon']+'@2x.png';
+      //  document.getElementById('day1icon2').src = 'http://openweathermap.org/img/wn/'+data['list'][3]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day1desc2').innerText = data['list'][3]['weather'][0]['main'];
+      //  document.getElementById('day1desc2').innerText = data['list'][3]['weather'][0]['main'];
       
-       document.getElementById("day1temp2").innerText = Math.round(data['list'][3]['main']['temp']-273.15)+'°C';
+      //  document.getElementById("day1temp2").innerText = Math.round(data['list'][3]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day1icon3').src = 'http://openweathermap.org/img/wn/'+data['list'][5]['weather'][0]['icon']+'@2x.png';
+      //  document.getElementById('day1icon3').src = 'http://openweathermap.org/img/wn/'+data['list'][5]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day1desc3').innerText = data['list'][5]['weather'][0]['main'];
+      //  document.getElementById('day1desc3').innerText = data['list'][5]['weather'][0]['main'];
       
-       document.getElementById("day1temp3").innerText = Math.round(data['list'][5]['main']['temp']-273.15)+'°C';
+      //  document.getElementById("day1temp3").innerText = Math.round(data['list'][5]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day1icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][6]['weather'][0]['icon']+'@2x.png';
+      //  document.getElementById('day1icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][6]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day1desc4').innerText = data['list'][6]['weather'][0]['main'];
+      //  document.getElementById('day1desc4').innerText = data['list'][6]['weather'][0]['main'];
       
-       document.getElementById("day1temp4").innerText = Math.round(data['list'][6]['main']['temp']-273.15)+'°C';
+      //  document.getElementById("day1temp4").innerText = Math.round(data['list'][6]['main']['temp']-273.15)+'°C';
         
-       document.getElementById('day2icon1').src = 'http://openweathermap.org/img/wn/'+data['list'][8]['weather'][0]['icon']+'@2x.png';
+      //  document.getElementById('day2icon1').src = 'http://openweathermap.org/img/wn/'+data['list'][8]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day2desc1').innerText = data['list'][8]['weather'][0]['main'];
+      //  document.getElementById('day2desc1').innerText = data['list'][8]['weather'][0]['main'];
       
-       document.getElementById("day2temp1").innerText = Math.round(data['list'][8]['main']['temp']-273.15)+'°C';
+      //  document.getElementById("day2temp1").innerText = Math.round(data['list'][8]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day2icon2').src = 'http://openweathermap.org/img/wn/'+data['list'][10]['weather'][0]['icon']+'@2x.png';
+      //  document.getElementById('day2icon2').src = 'http://openweathermap.org/img/wn/'+data['list'][10]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day2desc2').innerText = data['list'][10]['weather'][0]['main'];
+      //  document.getElementById('day2desc2').innerText = data['list'][10]['weather'][0]['main'];
       
-       document.getElementById("day2temp2").innerText = Math.round(data['list'][10]['main']['temp']-273.15)+'°C';
+      //  document.getElementById("day2temp2").innerText = Math.round(data['list'][10]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day2icon3').src = 'http://openweathermap.org/img/wn/'+data['list'][12]['weather'][0]['icon']+'@2x.png';
+      //  document.getElementById('day2icon3').src = 'http://openweathermap.org/img/wn/'+data['list'][12]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day2desc3').innerText = data['list'][12]['weather'][0]['main'];
+      //  document.getElementById('day2desc3').innerText = data['list'][12]['weather'][0]['main'];
       
-       document.getElementById("day2temp3").innerText = Math.round(data['list'][12]['main']['temp']-273.15)+'°C';
+      //  document.getElementById("day2temp3").innerText = Math.round(data['list'][12]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day2icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][14]['weather'][0]['icon']+'@2x.png';
+      //  document.getElementById('day2icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][14]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day2desc4').innerText = data['list'][14]['weather'][0]['main'];
+      //  document.getElementById('day2desc4').innerText = data['list'][14]['weather'][0]['main'];
       
-       document.getElementById("day2temp4").innerText = Math.round(data['list'][14]['main']['temp']-273.15)+'°C';
+      //  document.getElementById("day2temp4").innerText = Math.round(data['list'][14]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day3icon1').src = 'http://openweathermap.org/img/wn/'+data['list'][16]['weather'][0]['icon']+'@2x.png';
+      //  document.getElementById('day3icon1').src = 'http://openweathermap.org/img/wn/'+data['list'][16]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day3desc1').innerText = data['list'][16]['weather'][0]['main'];
+      //  document.getElementById('day3desc1').innerText = data['list'][16]['weather'][0]['main'];
       
-       document.getElementById("day3temp1").innerText = Math.round(data['list'][16]['main']['temp']-273.15)+'°C';
+      //  document.getElementById("day3temp1").innerText = Math.round(data['list'][16]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day3icon2').src = 'http://openweathermap.org/img/wn/'+data['list'][18]['weather'][0]['icon']+'@2x.png';
+      //  document.getElementById('day3icon2').src = 'http://openweathermap.org/img/wn/'+data['list'][18]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day3desc2').innerText = data['list'][18]['weather'][0]['main'];
+      //  document.getElementById('day3desc2').innerText = data['list'][18]['weather'][0]['main'];
       
-       document.getElementById("day3temp2").innerText = Math.round(data['list'][18]['main']['temp']-273.15)+'°C';
+      //  document.getElementById("day3temp2").innerText = Math.round(data['list'][18]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day3icon3').src = 'http://openweathermap.org/img/wn/'+data['list'][20]['weather'][0]['icon']+'@2x.png';
+      //  document.getElementById('day3icon3').src = 'http://openweathermap.org/img/wn/'+data['list'][20]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day3desc3').innerText = data['list'][20]['weather'][0]['main'];
+      //  document.getElementById('day3desc3').innerText = data['list'][20]['weather'][0]['main'];
       
-       document.getElementById("day3temp3").innerText = Math.round(data['list'][20]['main']['temp']-273.15)+'°C';
+      //  document.getElementById("day3temp3").innerText = Math.round(data['list'][20]['main']['temp']-273.15)+'°C';
 
-       document.getElementById('day3icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][22]['weather'][0]['icon']+'@2x.png';
+      //  document.getElementById('day3icon4').src = 'http://openweathermap.org/img/wn/'+data['list'][22]['weather'][0]['icon']+'@2x.png';
 
-       document.getElementById('day3desc4').innerText = data['list'][22]['weather'][0]['main'];
+      //  document.getElementById('day3desc4').innerText = data['list'][22]['weather'][0]['main'];
       
-       document.getElementById("day3temp4").innerText = Math.round(data['list'][22]['main']['temp']-273.15)+'°C';
+      //  document.getElementById("day3temp4").innerText = Math.round(data['list'][22]['main']['temp']-273.15)+'°C';
         
       }
     })
