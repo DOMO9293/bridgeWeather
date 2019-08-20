@@ -81,7 +81,10 @@ function weatherBalloon( cityName ) {
        
         //나절예보
         let day1currtime = parseInt(data['list'][0]['dt_txt'].slice(11,13));
-        console.log(data);
+        for(let i = 0 ; i<3 ; i++){
+          eval('var thedate'+i+'= data["list"]['+i*8+']["dt_txt"].slice(5,10);');
+          eval('document.getElementById("footerDate'+(i+1).toString()+'").innerHTML = data["list"]['+i*8+']["dt_txt"].slice(5,10) ')
+          }
         if(day1currtime>3&&day1currtime<10){//처음으로 들어오는 시간이 새벽기준인 4시보다 늦었을때
           var cnt = 0;
           for(let i = 1;i<4;i++){
@@ -466,7 +469,7 @@ function weatherBalloon( cityName ) {
          document.getElementById('desc').innerText = 'Day with '+data['weather'][0]['description'];
         };
         document.getElementById("loc").innerText = data['name'];
-        document.getElementById("temperature").innerText = Math.round(data['main']['temp'])/10+'°C';
+        document.getElementById("temperature").innerText = Math.round(data['main']['temp']-273.15)+'°C';
          let now = new Date(data['dt'] * 1000);
         
          console.log(now.toLocaleString('ko-KR', { hour: 'numeric', minute: 'numeric', hour12: true })) ;
@@ -475,9 +478,9 @@ function weatherBalloon( cityName ) {
          
         
         document.getElementById('minmaxtemp').innerText = 
-        Math.round(data['main']['temp_min'])/10+'/'+Math.round(data['main']['temp_max'])/10;
+        Math.round(data['main']['temp_min']-273.15)+'°C'+'/'+Math.round(data['main']['temp_max']-273.15)+'°C';
       });
-      //----------------------------------------------------------------------------------------------------
+      //---------------------------------------------------------------------------------------------------
 
       
       fetch('https://api.openweathermap.org/data/2.5/forecast?q=' + cityName+',kr'+ '&appid=' + key)  
@@ -506,7 +509,10 @@ function weatherBalloon( cityName ) {
           
         eval('var theday'+i+'= data["list"]['+i*8+']["dt_txt"].slice(0,10);');
         eval('day'+i+'OfWeek = week[new Date(theday'+i+').getDay()];');
-        eval('document.getElementById("day'+i+'").getElementsByTagName("div")[0].innerHTML = data["list"]['+i*8+']["dt_txt"].slice(5,10) + "<br/>"+day'+i+'OfWeek;');
+        eval('document.getElementById("day'+i+'").getElementsByTagName("div")[0].innerHTML = data["list"]['+i*8+']["dt_txt"].slice(5,10) + "<br/>"+day'+i+'OfWeek;')
+        
+        
+
         }
         
 
@@ -535,7 +541,11 @@ function weatherBalloon( cityName ) {
        
         //나절예보
         let day1currtime = parseInt(data['list'][0]['dt_txt'].slice(11,13));
-        console.log(data);
+
+        for(let i = 0 ; i<3 ; i++){
+        eval('var thedate'+i+'= data["list"]['+i*8+']["dt_txt"].slice(5,10);');
+        eval('document.getElementById("footerDate'+(i+1).toString()+'").innerHTML = data["list"]['+i*8+']["dt_txt"].slice(5,10) ')
+        }
         if(day1currtime>3&&day1currtime<10){//처음으로 들어오는 시간이 새벽기준인 4시보다 늦었을때
           var cnt = 0;
           for(let i = 1;i<4;i++){
